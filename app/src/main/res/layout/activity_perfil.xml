@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="crapida.app.consultarapida.perfil">
+
+    <Button
+        android:id="@+id/botaoSalvarId"
+        android:layout_width="207dp"
+        android:layout_height="55dp"
+        android:background="@color/colorPrimaryDark"
+        android:text="Salvar"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/tamanho_texto_perfil"
+        tools:layout_editor_absoluteX="202dp"
+        tools:layout_editor_absoluteY="694dp"
+        android:layout_below="@+id/textView10"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="66dp" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView9"
+        android:layout_marginTop="15dp"
+        android:text="Data"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/tamanho_texto_perfil" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView13"
+        android:layout_marginTop="22dp"
+        android:text="Plano"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/tamanho_texto_perfil" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView12"
+        android:layout_marginTop="19dp"
+        android:text="Convênio"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/tamanho_texto_perfil" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView11"
+        android:layout_marginTop="19dp"
+        android:text="Celular"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/tamanho_texto_perfil" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView8"
+        android:layout_marginTop="17dp"
+        android:text="Telefone"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/tamanho_texto_perfil" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="56dp"
+        android:text="Nome"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/tamanho_texto_perfil" />
+
+    <EditText
+        android:id="@+id/planoId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/convenioId"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignStart="@+id/convenioId"
+        android:layout_alignTop="@+id/textView10"
+        android:background="@android:color/white"
+        android:ems="10"
+        android:hint="Plano"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/convenioId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/celularId"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignStart="@+id/celularId"
+        android:layout_alignTop="@+id/textView13"
+        android:background="@android:color/white"
+        android:ems="10"
+        android:hint="Convênio"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/celularId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/telefoneId"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignStart="@+id/telefoneId"
+        android:layout_alignTop="@+id/textView12"
+        android:background="@android:color/white"
+        android:ems="10"
+        android:hint="Celular"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/telefoneId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/datanascId"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignStart="@+id/datanascId"
+        android:layout_alignTop="@+id/textView11"
+        android:background="@android:color/white"
+        android:ems="10"
+        android:hint="Telefone"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/datanascId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/nomeId"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignStart="@+id/nomeId"
+        android:layout_alignTop="@+id/textView8"
+        android:background="@android:color/white"
+        android:ems="10"
+        android:hint="Data de Nascimento"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/nomeId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textView9"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/textView9"
+        android:layout_marginLeft="21dp"
+        android:layout_marginStart="21dp"
+        android:layout_toRightOf="@+id/textView13"
+        android:background="@android:color/white"
+        android:ems="10"
+        android:hint="Nome"
+        android:inputType="textPersonName" />
+
+</RelativeLayout>

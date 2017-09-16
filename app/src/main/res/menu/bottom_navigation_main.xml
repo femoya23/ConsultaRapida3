@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <item
+        android:title="Perfil"
+        android:icon="@drawable/ic_perfil"
+        android:id="@+id/action_perfil"
+        android:enabled="true"
+        app:showAsAction="ifRoom"
+    />
+    <item
+        android:title="Consultas"
+        android:icon="@drawable/ic_consultas"
+        android:id="@+id/action_consultas"
+        android:enabled="true"
+        app:showAsAction="ifRoom"
+        />
+    <item
+        android:title="Buscar"
+        android:icon="@drawable/ic_buscar"
+        android:id="@+id/action_buscar"
+        android:enabled="true"
+        app:showAsAction="ifRoom"
+        />
+    <item
+        android:title="Avaliar"
+        android:icon="@drawable/ic_avaliar"
+        android:id="@+id/action_avaliar"
+        android:enabled="true"
+        app:showAsAction="ifRoom"
+        />
+
+
+</menu>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="crapida.app.consultarapida.MainActivity">
+
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Logo"
+        android:textSize="40sp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        tools:layout_editor_absoluteY="-1dp"
+        tools:layout_editor_absoluteX="102dp" />
+
+            <EditText
+            android:id="@+id/loginId"
+            android:layout_width="250dp"
+            android:layout_height="35dp"
+            android:ems="10"
+            android:hint="E-Mail"
+            android:inputType="textEmailAddress"
+            android:textColor="@android:color/black"
+            android:textSize="14sp"
+            tools:layout_editor_absoluteX="35dp"
+            tools:layout_editor_absoluteY="110dp"
+                android:layout_above="@+id/senhaId"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginBottom="28dp" />
+
+        <EditText
+            android:id="@+id/senhaId"
+            android:layout_width="250dp"
+            android:layout_height="35dp"
+            android:ems="10"
+            android:hint="Senha"
+            android:inputType="textPassword"
+            android:textColor="@android:color/black"
+            android:textSize="14sp"
+            tools:layout_editor_absoluteX="35dp"
+            tools:layout_editor_absoluteY="180dp"
+            android:layout_marginBottom="34dp"
+            android:layout_above="@+id/botaoLoginId"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <Button
+            android:id="@+id/botaoLoginId"
+            android:layout_width="312dp"
+            android:layout_height="56dp"
+            android:background="@color/colorPrimaryDark"
+            android:text="Button"
+            android:textColor="@android:color/white"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="255dp"
+            tools:text="Entrar"
+            tools:textAlignment="gravity"
+            android:layout_above="@+id/botaoCadastrarId"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="33dp" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_avaliar"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="110dp"
+            android:layout_alignTop="@+id/loginId"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_avaliar"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="180dp"
+            android:layout_alignTop="@+id/senhaId"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <Button
+            android:id="@+id/botaoCadastrarId"
+            android:layout_width="284dp"
+            android:layout_height="48dp"
+            android:text="Provisorio Cadastrar"
+            tools:layout_editor_absoluteX="1dp"
+            tools:layout_editor_absoluteY="354dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignRight="@+id/loginId"
+            android:layout_alignEnd="@+id/loginId"
+            android:layout_marginBottom="69dp" />
+
+
+
+
+</RelativeLayout>

@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "852673570458",
+    "firebase_url": "https://consulta-rapida.firebaseio.com",
+    "project_id": "consulta-rapida",
+    "storage_bucket": "consulta-rapida.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:852673570458:android:3ef4068fe95f7099",
+        "android_client_info": {
+          "package_name": "crapida.app.consultarapida"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "852673570458-2c1rl5q1ssm57hmrr1hhg6t72k2sno8v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "crapida.app.consultarapida",
+            "certificate_hash": "b90222c5ea4f803060e0e9367f367ea374424801"
+          }
+        },
+        {
+          "client_id": "852673570458-9iac6es2s07vnff5u4gtvvkuedatlb3r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBe_tm4WVeox4JvvuBBfLsjBVs1fgkZtN4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "852673570458-9iac6es2s07vnff5u4gtvvkuedatlb3r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
