@@ -45,4 +45,5 @@
         android:background="@color/colorPrimaryDark"
         android:text="PESQUISAR"
         android:textColor="@android:color/white" />
+
 </RelativeLayout>
