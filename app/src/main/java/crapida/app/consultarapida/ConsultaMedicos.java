@@ -8,6 +8,16 @@ public class ConsultaMedicos {
 
     private String Nome;
 
+    public String getEnd() {
+        return End;
+    }
+
+    public void setEnd(String end) {
+        End = end;
+    }
+
+    private String End;
+
     public ConsultaMedicos() {
     }
 

@@ -27,6 +27,8 @@ public class filtroBuscaActivity extends Activity {
     private ArrayList<String> especialidade;
     private ArrayList<String> estados;
     private ArrayList<String> cidades;
+    private ArrayList<String> nome;
+    private ArrayList<String> end;
     private DatabaseReference firebase;
     private Button botaopesquisar;
 
@@ -40,7 +42,8 @@ public class filtroBuscaActivity extends Activity {
         especialidade = new ArrayList<>();
         estados = new ArrayList<>();
         cidades = new ArrayList<>();
-
+        nome = new ArrayList<>();
+        end = new ArrayList<>();
 
         //Referencia objeto
         spespecialidade = (Spinner) findViewById(R.id.spespecialidade);
@@ -154,23 +157,46 @@ public class filtroBuscaActivity extends Activity {
         botaopesquisar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 String especialidadeselecionado = (String) spespecialidade.getSelectedItem();
                 String estadoselecionado = (String) spestado.getSelectedItem();
                 String cidadeselecionado = (String) spcidade.getSelectedItem();
 
-                Intent intent = new Intent(filtroBuscaActivity.this, Resultado.class);
-                intent.putExtra("especialidade", especialidadeselecionado);
-                intent.putExtra("estado", estadoselecionado);
-                intent.putExtra("cidade", cidadeselecionado);
+                firebase = ConfiguracaoFirebase.getFirebase()
+                        .child("medicos")
+                        .child(especialidadeselecionado)
+                        .child(estadoselecionado)
+                        .child(cidadeselecionado);
+
+
+                firebase.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        //Limpar lista
+                        nome.clear();
+                        end.clear();
+                        //Listar contatos
+                        for (DataSnapshot dados: dataSnapshot.getChildren() ){
+                            ConsultaMedicos consultaMedicos = dados.getValue( ConsultaMedicos.class );
+                            nome.add(consultaMedicos.getNome());
+                            end.add(consultaMedicos.getEnd());
+                        }
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
+
+                Intent intent = new Intent(filtroBuscaActivity.this, Results.class);
+                intent.putExtra("nome", nome);
+                intent.putExtra("end", end);
+
 
                 startActivity( intent);
             }
         });
 
 
-        String especialidadeselecionado = (String) spespecialidade.getSelectedItem();
-        String estadoselecionado = (String) spestado.getSelectedItem();
-        String cidadeselecionado = (String) spcidade.getSelectedItem();
 
     }
 }
