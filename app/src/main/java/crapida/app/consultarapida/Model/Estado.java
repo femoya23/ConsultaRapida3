@@ -1,14 +1,14 @@
-package crapida.app.consultarapida;
+package crapida.app.consultarapida.Model;
 
 /**
  * Created by Fernando on 10/09/2017.
  */
 
-public class Espec {
+public class Estado {
 
     private String Nome;
 
-    public Espec() {
+    public Estado() {
     }
 
     public String getNome() {

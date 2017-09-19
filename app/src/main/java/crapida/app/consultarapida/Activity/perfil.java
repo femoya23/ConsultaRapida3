@@ -1,4 +1,4 @@
-package crapida.app.consultarapida;
+package crapida.app.consultarapida.Activity;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -14,6 +14,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import crapida.app.consultarapida.R;
 
 public class perfil extends Activity {
 

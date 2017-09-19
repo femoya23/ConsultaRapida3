@@ -1,22 +1,35 @@
-package crapida.app.consultarapida;
+package crapida.app.consultarapida.fragment;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.Spinner;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
-
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
 import java.util.ArrayList;
 
-public class filtroBuscaActivity extends Activity {
+import crapida.app.consultarapida.Model.Cidade;
+import crapida.app.consultarapida.Model.ConfiguracaoFirebase;
+import crapida.app.consultarapida.Model.ConsultaMedicos;
+import crapida.app.consultarapida.Model.Espec;
+import crapida.app.consultarapida.Model.Estado;
+import crapida.app.consultarapida.Model.Preferencias;
+import crapida.app.consultarapida.R;
+import crapida.app.consultarapida.Activity.Results;
+
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class BuscaFragment extends Fragment {
+
 
     private Spinner spespecialidade;
     private Spinner spestado;
@@ -33,9 +46,10 @@ public class filtroBuscaActivity extends Activity {
     private Button botaopesquisar;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_filtro_busca);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_busca, container, false);
 
 
         //Instancia o Array List
@@ -46,25 +60,25 @@ public class filtroBuscaActivity extends Activity {
         end = new ArrayList<>();
 
         //Referencia objeto
-        spespecialidade = (Spinner) findViewById(R.id.spespecialidade);
-        spestado = (Spinner) findViewById(R.id.spestado);
-        spcidade = (Spinner) findViewById(R.id.spcidade);
-        botaopesquisar = (Button) findViewById(R.id.btpesquisar);
+        spespecialidade = (Spinner) view.findViewById(R.id.spespecialidade);
+        spestado = (Spinner) view.findViewById(R.id.spestado);
+        spcidade = (Spinner) view.findViewById(R.id.spcidade);
+        botaopesquisar = (Button) view.findViewById(R.id.btpesquisar);
 
         //Monta Spinner
-        adapterespecialidade = new ArrayAdapter (this, R.layout.spinner_busca,especialidade);
+        adapterespecialidade = new ArrayAdapter(getActivity(),R.layout.spinner_busca,especialidade);
         spespecialidade.setAdapter(adapterespecialidade);
 
-        adapterestado = new ArrayAdapter (this, R.layout.spinner_busca,estados);
+        adapterestado = new ArrayAdapter (getActivity(), R.layout.spinner_busca,estados);
         spestado.setAdapter(adapterestado);
 
-        adaptercidade = new ArrayAdapter (this, R.layout.spinner_busca,cidades);
+        adaptercidade = new ArrayAdapter (getActivity(), R.layout.spinner_busca,cidades);
         spcidade.setAdapter(adaptercidade);
 
 
 
         //recuperar especialidades do firebase especialidade
-        Preferencias preferencias = new Preferencias(this);
+        Preferencias preferencias = new Preferencias(getActivity());
         firebase = ConfiguracaoFirebase.getFirebase()
                 .child("filtros")
                 .child("especialidade");
@@ -83,7 +97,7 @@ public class filtroBuscaActivity extends Activity {
             }
         });
 
-            spespecialidade.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spespecialidade.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
@@ -116,42 +130,42 @@ public class filtroBuscaActivity extends Activity {
 
         });
 
-            spestado.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        spestado.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
 
-                    String estadoselecionado = (String) spestado.getSelectedItem();
+                String estadoselecionado = (String) spestado.getSelectedItem();
 
 
-                    firebase = ConfiguracaoFirebase.getFirebase()
-                            .child("filtros")
-                            .child("cidade")
-                            .child(estadoselecionado);
-                    firebase.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            cidades.clear();
-                            cidades.add("Escolha uma cidade");
-                            for(DataSnapshot dados: dataSnapshot.getChildren() ){
-                                Cidade cidade = dados.getValue(Cidade.class);
-                                cidades.add(cidade.getNome());
-                            }
-                            adaptercidade.notifyDataSetChanged();
+                firebase = ConfiguracaoFirebase.getFirebase()
+                        .child("filtros")
+                        .child("cidade")
+                        .child(estadoselecionado);
+                firebase.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        cidades.clear();
+                        cidades.add("Escolha uma cidade");
+                        for(DataSnapshot dados: dataSnapshot.getChildren() ){
+                            Cidade cidade = dados.getValue(Cidade.class);
+                            cidades.add(cidade.getNome());
                         }
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-                        }
-                    });
+                        adaptercidade.notifyDataSetChanged();
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
 
 
-                }
+            }
 
-                @Override
-                public void onNothingSelected(AdapterView<?> adapterView) {
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
 
-                }
-            });
+            }
+        });
 
 
         botaopesquisar.setOnClickListener(new View.OnClickListener() {
@@ -187,7 +201,7 @@ public class filtroBuscaActivity extends Activity {
                     }
                 });
 
-                Intent intent = new Intent(filtroBuscaActivity.this, Results.class);
+                Intent intent = new Intent(getActivity(), Results.class);
                 intent.putExtra("nome", nome);
                 intent.putExtra("end", end);
 
@@ -196,7 +210,7 @@ public class filtroBuscaActivity extends Activity {
             }
         });
 
-
+        return view;
 
     }
 }

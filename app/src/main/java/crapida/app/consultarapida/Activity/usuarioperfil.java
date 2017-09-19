@@ -1,4 +1,4 @@
-package crapida.app.consultarapida;
+package crapida.app.consultarapida.Activity;
 
 import android.widget.EditText;
 

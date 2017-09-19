@@ -1,4 +1,4 @@
-package crapida.app.consultarapida;
+package crapida.app.consultarapida.Activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.google.firebase.database.DatabaseReference;
+
+import crapida.app.consultarapida.R;
 
 
 public class Results extends AppCompatActivity {
