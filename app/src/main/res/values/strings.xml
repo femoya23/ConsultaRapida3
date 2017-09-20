@@ -5,7 +5,8 @@
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
     <string name="title_activity_settings">Settings</string>
-
+    <string name="item_sair">Sair</string>
+    <string name="item_settings">Configurações</string>
     <!-- Strings related to Settings -->
 
     <!-- Example General settings -->
