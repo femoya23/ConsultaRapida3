@@ -1,43 +1,48 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="crapida.app.consultarapida.fragment.BuscaFragment">
+    tools:context="crapida.app.consultarapida.fragment.BuscaFragment"
+    tools:layout_editor_absoluteY="25dp"
+    tools:layout_editor_absoluteX="0dp">
 
     <!-- TODO: Update blank fragment layout -->
     <Spinner
         android:id="@+id/spespecialidade"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="160dp" />
+        android:layout_width="368dp"
+        android:layout_height="30dp"
+        tools:layout_editor_absoluteY="92dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 
     <Spinner
         android:id="@+id/spestado"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/spespecialidade"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="70dp" />
+        android:layout_width="368dp"
+        android:layout_height="30dp"
+        tools:layout_editor_absoluteY="186dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="1.0" />
 
     <Spinner
         android:id="@+id/spcidade"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/spestado"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="70dp" />
+        android:layout_width="368dp"
+        android:layout_height="30dp"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="286dp" />
 
     <Button
         android:id="@+id/btpesquisar"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/spcidade"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="67dp"
         android:background="@color/colorPrimaryDark"
         android:text="PESQUISAR"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:layout_editor_absoluteY="354dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp" />
 
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>
