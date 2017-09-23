@@ -18,13 +18,15 @@ public class ConsultorioAgendamento extends Fragment {
     public ConsultorioAgendamento() {
         // Required empty public constructor
     }
-
+private String a;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_consultorio_agendamento, container, false);
+
+
     }
 
 }
