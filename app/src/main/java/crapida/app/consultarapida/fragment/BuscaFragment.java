@@ -172,9 +172,9 @@ public class BuscaFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                String especialidadeselecionado = (String) spespecialidade.getSelectedItem();
-                String estadoselecionado = (String) spestado.getSelectedItem();
-                String cidadeselecionado = (String) spcidade.getSelectedItem();
+                final String especialidadeselecionado = (String) spespecialidade.getSelectedItem();
+                final String estadoselecionado = (String) spestado.getSelectedItem();
+                final String cidadeselecionado = (String) spcidade.getSelectedItem();
 
                 firebase = ConfiguracaoFirebase.getFirebase()
                         .child("medicos")
@@ -195,18 +195,26 @@ public class BuscaFragment extends Fragment {
                             nome.add(consultaMedicos.getNome());
                             end.add(consultaMedicos.getEnd());
                         }
+
+                        Intent intent = new Intent(getActivity(), Results.class);
+                        intent.putExtra("nome", nome);
+                        intent.putExtra("end", end);
+                        intent.putExtra("especialiade", especialidadeselecionado);
+                        intent.putExtra("estado", estadoselecionado);
+                        intent.putExtra("cidade", cidadeselecionado);
+                        startActivity( intent);
+
                     }
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
                     }
-                });
-
-                Intent intent = new Intent(getActivity(), Results.class);
-                intent.putExtra("nome", nome);
-                intent.putExtra("end", end);
+                }
 
 
-                startActivity( intent);
+
+                );
+
+
             }
         });
 

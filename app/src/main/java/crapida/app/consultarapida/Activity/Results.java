@@ -1,7 +1,10 @@
 package crapida.app.consultarapida.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
@@ -19,6 +22,10 @@ import crapida.app.consultarapida.R;
 public class Results extends AppCompatActivity {
 
     private DatabaseReference firebase;
+    private String especialidade;
+    private String estado;
+    private String cidade;
+    private ArrayList nome;
 
 
     @Override
@@ -28,8 +35,11 @@ public class Results extends AppCompatActivity {
 
         //Recupera dados da pesquisa
         Bundle extra = getIntent().getExtras();
-        ArrayList nome = extra.getStringArrayList("nome");
+        nome = extra.getStringArrayList("nome");
         ArrayList end = extra.getStringArrayList("end");
+        especialidade = extra.getString("especialidade");
+        cidade = extra.getString("cidade");
+        estado = extra.getString("estado");
 
         ListView resultsListView = (ListView) findViewById(R.id.results_listview);
 
@@ -59,6 +69,23 @@ public class Results extends AppCompatActivity {
         resultsListView.setAdapter(adapter);
 
 
+        //Evento ao clicar no item da lista
+
+        resultsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                String nomeSelect = (String) nome.get(position);
+                Intent intent = new Intent(Results.this, Consultorio.class );
+                intent.putExtra("nome", nomeSelect);
+                intent.putExtra("especialidade", especialidade);
+                intent.putExtra("estado", estado);
+                intent.putExtra("cidade", cidade);
+                startActivity(intent);
+
+
+            }
+        });
 
 
 
