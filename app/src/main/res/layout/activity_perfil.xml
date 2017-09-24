@@ -130,10 +130,11 @@
         android:id="@+id/sexoFemininoId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Feminino"
         android:layout_marginLeft="64dp"
-        app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="8dp"
+        android:checked="false"
+        android:text="Feminino"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/labelSexoId" />
 
     <RadioButton

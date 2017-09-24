@@ -15,7 +15,7 @@
         android:id="@+id/stl_tabs"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimary"></crapida.app.consultarapida.helper.SlidingTabLayout>
+        android:background="@color/colorBackground"></crapida.app.consultarapida.helper.SlidingTabLayout>
 
     <android.support.v4.view.ViewPager android:id="@+id/vp_pagina"
         android:layout_width="match_parent" android:layout_height="0dp"
