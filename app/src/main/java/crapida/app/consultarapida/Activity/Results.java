@@ -1,6 +1,7 @@
 package crapida.app.consultarapida.Activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -26,6 +27,7 @@ public class Results extends AppCompatActivity {
     private String estado;
     private String cidade;
     private ArrayList nome;
+    private static final String ARQUIVO_PREFERENCIA = "ArquivoPreferencia";
 
 
     @Override
@@ -78,9 +80,15 @@ public class Results extends AppCompatActivity {
                 String nomeSelect = (String) nome.get(position);
                 Intent intent = new Intent(Results.this, Consultorio.class );
                 intent.putExtra("nome", nomeSelect);
-                intent.putExtra("especialidade", especialidade);
-                intent.putExtra("estado", estado);
-                intent.putExtra("cidade", cidade);
+
+                SharedPreferences sharedPreferences = getSharedPreferences(ARQUIVO_PREFERENCIA,0);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("especialidade",especialidade);
+                editor.putString("estado",estado);
+                editor.putString("cidade",cidade);
+                editor.putString("nome",nomeSelect);
+                editor.commit();
+
                 startActivity(intent);
 
 

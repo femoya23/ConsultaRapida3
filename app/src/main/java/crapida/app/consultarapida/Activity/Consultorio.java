@@ -2,6 +2,8 @@ package crapida.app.consultarapida.Activity;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -10,13 +12,20 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.app.Activity;
+
+import android.app.FragmentManager;
 
 import com.google.firebase.auth.FirebaseAuth;
 
 import crapida.app.consultarapida.Adapter.TabAdapterConsultorio;
 import crapida.app.consultarapida.Model.ConfiguracaoFirebase;
+import crapida.app.consultarapida.Model.ConsultorioSelect;
 import crapida.app.consultarapida.R;
+import crapida.app.consultarapida.fragment.ConsultorioInfo;
 import crapida.app.consultarapida.helper.SlidingTabLayout;
+
+import static android.R.attr.data;
 
 public class Consultorio extends AppCompatActivity {
 
@@ -29,17 +38,22 @@ public class Consultorio extends AppCompatActivity {
 
     private String nome;
 
+
     //Fim Variaveis Novas
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tela_prin);
 
+
+
         //Codigo Novo
 
         //Recebe Extras
         Bundle extra = getIntent().getExtras();
         nome = extra.getString("nome");
+
+
 
         //COnfiguração da Toolbar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -62,17 +76,6 @@ public class Consultorio extends AppCompatActivity {
 
 
         //Final Codigo novo
-
-
-
-
-
-
-
-
-
-
-
 
 
         //Configurar Adapter
@@ -114,6 +117,10 @@ public class Consultorio extends AppCompatActivity {
     public void abrirPerfil(){
         Intent intent = new Intent(Consultorio.this,perfil.class);
         startActivity(intent);
+
+
+
+
     }
 }
 
