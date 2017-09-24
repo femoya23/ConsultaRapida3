@@ -1,99 +1,120 @@
 package crapida.app.consultarapida.Activity;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.StringTokenizer;
+
+import crapida.app.consultarapida.Model.ConfiguracaoFirebase;
+import crapida.app.consultarapida.Model.Convenio;
+import crapida.app.consultarapida.Model.Espec;
+import crapida.app.consultarapida.Model.Estado;
+import crapida.app.consultarapida.Model.Plano;
+import crapida.app.consultarapida.Model.Preferencias;
 import crapida.app.consultarapida.R;
+
+/**
+ * Created by wsabo on 23/09/2017.
+ */
 
 public class perfil extends Activity {
 
-    private DatabaseReference firebaseReferencia = FirebaseDatabase.getInstance().getReference();
-    private DatabaseReference usuarioReferencia = firebaseReferencia.child("usuarios");
-
-    private FirebaseAuth firebaseAuth;
-    private EditText nome;
-    private EditText dataNascimento;
-    private EditText telefone;
-    private EditText celular;
-    private EditText convenio;
-    private EditText plano;
-    private Button salvar;
-    private String uid;
+    private Spinner spConvenio;
+    private Spinner spPlano;
+    private ArrayList<String> convenio;
+    private ArrayList<String> plano;
+    private ArrayAdapter adapterConvenio;
+    private ArrayAdapter adapterPlano;
+    private DatabaseReference firebase;
 
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil);
 
-        //Recebe info do usuario logado
+
+        //Instancia o Array List
+        convenio = new ArrayList<>();
+        plano = new ArrayList<>();
+
+        //Referencia objeto
+        spConvenio = (Spinner) findViewById(R.id.convenioId);
+        spPlano = (Spinner) findViewById(R.id.planoId);
+
+        //Monta Spinner
+        adapterConvenio = new ArrayAdapter (perfil.this, R.layout.spinner_busca,convenio);
+        spConvenio.setAdapter(adapterConvenio);
+
+        adapterPlano = new ArrayAdapter(perfil.this,R.layout.spinner_busca,plano);
+        spPlano.setAdapter(adapterPlano);
 
 
-
-
-
-        //Referenciamento dos campos
-        nome = (EditText) findViewById(R.id.nomeId);
-        dataNascimento = (EditText) findViewById(R.id.datanascId);
-        telefone = (EditText) findViewById(R.id.telefoneId);
-        celular = (EditText) findViewById(R.id.celularId);
-        convenio = (EditText) findViewById(R.id.convenioId);
-        plano = (EditText) findViewById(R.id.planoId);
-        salvar = (Button) findViewById(R.id.botaoSalvarId);
-
-        //ação do botao
-        salvar.setOnClickListener(new View.OnClickListener() {
+        //recuperar convenio do firebase convenios
+        firebase = ConfiguracaoFirebase.getFirebase()
+                .child("filtros")
+                .child("convenios");
+        firebase.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onClick(View view) {
-                FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                convenio.add("Escolha um convênio");
+                for(DataSnapshot dados: dataSnapshot.getChildren() ){
+                    Convenio conv = dados.getValue(Convenio.class);
+                    convenio.add(conv.getNome());
+                }
+                adapterConvenio.notifyDataSetChanged();
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
 
-                //Instaciamento do construtor
-                usuarioperfil usuario = new usuarioperfil();
+        spConvenio.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                //Converte para String
-                String textonome = nome.getText().toString();
-                String textodatanascimento = dataNascimento.getText().toString();
-                String textotelefone = telefone.getText().toString();
-                String textocelular = celular.getText().toString();
-                String textoconvenio = convenio.getText().toString();
-                String textoplano = plano.getText().toString();
+                String convenioSelecionado = (String) spConvenio.getSelectedItem();
 
-                //Envia para o objeto
-                usuario.setNome(textonome);
-                usuario.setDataNascimento(textodatanascimento);
-                usuario.setTelefone(textotelefone);
-                usuario.setCelular(textocelular);
-                usuario.setConvenio(textoconvenio);
-                usuario.setPlano(textoplano);
-
-                //grava no banco
-
-                usuarioReferencia.child(currentFirebaseUser.getUid()).setValue(usuario)
-                        .addOnCompleteListener(perfil.this, new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if(task.isSuccessful()){
-                                    Toast.makeText(perfil.this, "Perfil Alterado com Sucesso", Toast.LENGTH_SHORT).show();
-                                }else{
-                                    Toast.makeText(perfil.this, "Falha ao alterar Perfil", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
-
+                firebase = ConfiguracaoFirebase.getFirebase()
+                        .child("filtros")
+                        .child("convenios")
+                        .child(convenioSelecionado)
+                        .child("Planos");
+                firebase.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        plano.clear();
+                        plano.add("Escolha um plano");
+                        for(DataSnapshot dados: dataSnapshot.getChildren() ){
+                            Plano plan = dados.getValue(Plano.class);
+                            plano.add(plan.getNome());
+                        }
+                        adapterPlano.notifyDataSetChanged();
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
 
             }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+
         });
 
 
