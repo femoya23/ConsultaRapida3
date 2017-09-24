@@ -18,7 +18,7 @@ public class ConsultorioAgendamento extends Fragment {
     public ConsultorioAgendamento() {
         // Required empty public constructor
     }
-private String a;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

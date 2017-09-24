@@ -85,6 +85,7 @@ public class BuscaFragment extends Fragment {
         firebase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                especialidade.clear();
                 especialidade.add("Escolha uma especialidade");
                 for(DataSnapshot dados: dataSnapshot.getChildren() ){
                     Espec espec = dados.getValue(Espec.class);
