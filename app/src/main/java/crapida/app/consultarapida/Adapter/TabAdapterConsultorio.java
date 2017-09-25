@@ -6,6 +6,9 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import crapida.app.consultarapida.fragment.BuscaFragment;
 import crapida.app.consultarapida.fragment.Consultas;
+import crapida.app.consultarapida.fragment.ConsultorioAgendamento;
+import crapida.app.consultarapida.fragment.ConsultorioAvaliacao;
+import crapida.app.consultarapida.fragment.ConsultorioInfo;
 
 /**
  * Created by Fernando on 18/09/2017.
@@ -14,6 +17,8 @@ import crapida.app.consultarapida.fragment.Consultas;
 public class TabAdapterConsultorio extends FragmentStatePagerAdapter {
 
     private String[] tituloAbas = {"INFORMAÇÕES","AGENDAMENTO","AVALIAÇÕES"};
+
+
 
     public TabAdapterConsultorio(FragmentManager fm) {
         super(fm);
@@ -25,13 +30,13 @@ public class TabAdapterConsultorio extends FragmentStatePagerAdapter {
 
         switch ( position ){
             case 0 :
-                fragment = new BuscaFragment();
+                fragment = new ConsultorioInfo();
                 break;
             case 1 :
-                fragment = new Consultas();
+                fragment = new ConsultorioAgendamento();
                 break;
             case 2 :
-                fragment = new BuscaFragment();
+                fragment = new ConsultorioAvaliacao();
         }
         return fragment;
     }
@@ -46,3 +51,6 @@ public class TabAdapterConsultorio extends FragmentStatePagerAdapter {
         return tituloAbas[position];
     }
 }
+
+
+

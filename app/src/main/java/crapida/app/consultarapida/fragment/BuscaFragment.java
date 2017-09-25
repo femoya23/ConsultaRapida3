@@ -15,7 +15,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import java.util.ArrayList;
-
 import crapida.app.consultarapida.Model.Cidade;
 import crapida.app.consultarapida.Model.ConfiguracaoFirebase;
 import crapida.app.consultarapida.Model.ConsultaMedicos;
@@ -42,6 +41,7 @@ public class BuscaFragment extends Fragment {
     private ArrayList<String> cidades;
     private ArrayList<String> nome;
     private ArrayList<String> end;
+    private ArrayList<String> idnome;
     private DatabaseReference firebase;
     private Button botaopesquisar;
 
@@ -58,6 +58,7 @@ public class BuscaFragment extends Fragment {
         cidades = new ArrayList<>();
         nome = new ArrayList<>();
         end = new ArrayList<>();
+        idnome = new ArrayList<>();
 
         //Referencia objeto
         spespecialidade = (Spinner) view.findViewById(R.id.spespecialidade);
@@ -195,12 +196,14 @@ public class BuscaFragment extends Fragment {
                             ConsultaMedicos consultaMedicos = dados.getValue( ConsultaMedicos.class );
                             nome.add(consultaMedicos.getNome());
                             end.add(consultaMedicos.getEnd());
+                            idnome.add(consultaMedicos.getIdNome());
                         }
 
                         Intent intent = new Intent(getActivity(), Results.class);
                         intent.putExtra("nome", nome);
                         intent.putExtra("end", end);
-                        intent.putExtra("especialiade", especialidadeselecionado);
+                        intent.putExtra("idnome", idnome);
+                        intent.putExtra("especialidade", especialidadeselecionado);
                         intent.putExtra("estado", estadoselecionado);
                         intent.putExtra("cidade", cidadeselecionado);
                         startActivity( intent);

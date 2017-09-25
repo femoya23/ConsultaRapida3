@@ -1,33 +1,29 @@
 package crapida.app.consultarapida.Activity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
 import com.google.firebase.database.DatabaseReference;
-
 import crapida.app.consultarapida.R;
 
 
 public class Results extends AppCompatActivity {
 
-    private DatabaseReference firebase;
     private String especialidade;
     private String estado;
     private String cidade;
     private ArrayList nome;
-    private static final String ARQUIVO_PREFERENCIA = "ArquivoPreferencia";
+    private ArrayList idnome;
+    public String ARQUIVO_PREFERENCIA = "ArquivoPreferencia";
 
 
     @Override
@@ -39,6 +35,7 @@ public class Results extends AppCompatActivity {
         Bundle extra = getIntent().getExtras();
         nome = extra.getStringArrayList("nome");
         ArrayList end = extra.getStringArrayList("end");
+        idnome = extra.getStringArrayList("idnome");
         especialidade = extra.getString("especialidade");
         cidade = extra.getString("cidade");
         estado = extra.getString("estado");
@@ -78,16 +75,14 @@ public class Results extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 String nomeSelect = (String) nome.get(position);
+                String idnomeSelect = (String) idnome.get(position);
                 Intent intent = new Intent(Results.this, Consultorio.class );
                 intent.putExtra("nome", nomeSelect);
+                intent.putExtra("idnome", idnomeSelect);
+                intent.putExtra("especialidade", especialidade);
+                intent.putExtra("estado", estado);
+                intent.putExtra("cidade", cidade);
 
-                SharedPreferences sharedPreferences = getSharedPreferences(ARQUIVO_PREFERENCIA,0);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("especialidade",especialidade);
-                editor.putString("estado",estado);
-                editor.putString("cidade",cidade);
-                editor.putString("nome",nomeSelect);
-                editor.commit();
 
                 startActivity(intent);
 
