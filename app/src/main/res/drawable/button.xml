@@ -5,12 +5,8 @@ android:padding="10dp"
 android:shape="rectangle">
 
 
-
 <corners android:radius="10dp"/>
 
-    <gradient
-        android:angle="270"
-        android:startColor="#00695C"
-        android:endColor="#26A69A"/>
+<solid android:color="@color/colorPrimaryDark"/>
 
 </shape>

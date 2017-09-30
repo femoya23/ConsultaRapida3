@@ -4,13 +4,8 @@
 android:padding="10dp"
 android:shape="rectangle">
 
-<solid android:color="@color/colorPrimary" />
+<solid android:color="@color/botaoSecundario" />
 
 <corners android:radius="10dp"/>
-
-    <gradient
-        android:angle="270"
-        android:startColor="#26A69A"
-        android:endColor="#80CBC4"/>
 
 </shape>
