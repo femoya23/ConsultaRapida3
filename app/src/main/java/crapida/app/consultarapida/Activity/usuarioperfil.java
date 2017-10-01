@@ -1,7 +1,5 @@
 package crapida.app.consultarapida.Activity;
 
-import android.widget.EditText;
-
 /**
  * Created by Fernando on 27/08/2017.
  */
@@ -12,6 +10,8 @@ public class usuarioperfil {
     private String telefone;
     private String celular;
     private String convenio;
+    private String plano;
+    private String sexo;
 
     public usuarioperfil() {
     }
@@ -64,6 +64,7 @@ public class usuarioperfil {
         this.plano = plano;
     }
 
-    private String plano;
+    public String getSexo() { return sexo; }
 
+    public void setSexo(String sexo) { this.sexo = sexo; }
 }

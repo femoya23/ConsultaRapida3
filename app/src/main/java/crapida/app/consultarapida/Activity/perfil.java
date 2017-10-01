@@ -36,10 +36,18 @@ public class perfil extends Activity {
 
     private Spinner spConvenio;
     private Spinner spPlano;
+    private Spinner spSexo;
+
     private ArrayList<String> convenio;
     private ArrayList<String> plano;
+    //private ArrayList<String> sexo;
+
+    private String[] sexo;
+
     private ArrayAdapter adapterConvenio;
     private ArrayAdapter adapterPlano;
+    private ArrayAdapter adapterSexo;
+
     private DatabaseReference firebase;
     //teste de exibição de foto e dados do Facebook
     private ImageView ivFoto;
@@ -57,6 +65,7 @@ public class perfil extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil);
 
+        //inicializar componentes
         inicializarComponentes();
         inicializarFirebase();
         clicarBotaoLogout();
@@ -64,10 +73,12 @@ public class perfil extends Activity {
         //Instancia o Array List
         convenio = new ArrayList<>();
         plano = new ArrayList<>();
+        sexo = new String[] {"Escolha seu sexo", "Feminino", "Masculino", "Outro"};
 
         //Referencia objeto
         spConvenio = (Spinner) findViewById(R.id.convenioId);
         spPlano = (Spinner) findViewById(R.id.planoId);
+        spSexo = (Spinner) findViewById(R.id.sexoId);
 
         //Monta Spinner
         adapterConvenio = new ArrayAdapter (perfil.this, R.layout.spinner_busca,convenio);
@@ -75,6 +86,9 @@ public class perfil extends Activity {
 
         adapterPlano = new ArrayAdapter(perfil.this,R.layout.spinner_busca,plano);
         spPlano.setAdapter(adapterPlano);
+
+        adapterSexo = new ArrayAdapter (perfil.this, R.layout.spinner_busca,sexo);
+        spSexo.setAdapter(adapterSexo);
 
 
         //recuperar convenio do firebase convenios
@@ -131,6 +145,40 @@ public class perfil extends Activity {
             }
 
         });
+
+        /**
+        //recuperar sexo do firebase
+        spSexo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                firebase = ConfiguracaoFirebase.getFirebase()
+                        .child("filtros")
+                        .child("sexo");
+                firebase.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        sexo.clear();
+                        sexo.add("Escolha seu sexo");
+                        for(DataSnapshot dados: dataSnapshot.getChildren() ){
+                            Sexo sex = dados.getValue(Sexo.class);
+                            sexo.add(sex.getNome());
+                        }
+                        adapterSexo.notifyDataSetChanged();
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+
+        });*/
 
 
     }
