@@ -138,7 +138,6 @@ public class SlidingTabLayout extends HorizontalScrollView {
 
     /**
      *
-
      * @return cor do texto das Tabs, no caso texto branco
      */
     protected TextView createDefaultTabView(Context context) {
