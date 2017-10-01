@@ -1,32 +1,137 @@
 package crapida.app.consultarapida.fragment;
 
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
+import java.util.ArrayList;
+import crapida.app.consultarapida.Model.ConfiguracaoFirebase;
+import crapida.app.consultarapida.Model.ListadeDatas;
+import crapida.app.consultarapida.Model.ListadeHoras;
+import crapida.app.consultarapida.Model.Preferencias;
 import crapida.app.consultarapida.R;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class ConsultorioAgendamento extends Fragment {
 
-
-    public ConsultorioAgendamento() {
-        // Required empty public constructor
-    }
-
+    public String especialidadeSelect;
+    public String estadoSelect;
+    public String cidadeSelect;
+    public String idNomeSelect;
+    private Spinner spDatas;
+    private Spinner spHoras;
+    private ArrayAdapter adapterDatas;
+    private ArrayAdapter adapterHoras;
+    private ArrayList<String> listDatas;
+    private ArrayList<String> listHoras;
+    private DatabaseReference firebase;
+    private Button botaopesquisar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_consultorio_agendamento, container, false);
+        View view = inflater.inflate(R.layout.fragment_consultorio_agendamento, container, false);
 
+        //Recupera Dados da Seleção
+        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("pref",0);
+        idNomeSelect = sharedPreferences.getString("idnome","idnome");
+        estadoSelect = sharedPreferences.getString("estado","estado");
+        especialidadeSelect = sharedPreferences.getString("especialidade","especialidade");
+        cidadeSelect = sharedPreferences.getString("cidade","cidade");
+
+        //Instancia o Array List
+        listDatas = new ArrayList<>();
+        listHoras = new ArrayList<>();
+
+        //Referencia objeto
+        spDatas = (Spinner) view.findViewById(R.id.spDatas);
+        spHoras = (Spinner) view.findViewById(R.id.spHora);
+        botaopesquisar = (Button) view.findViewById(R.id.btpesquisar);
+
+        //Monta Spinner
+        adapterDatas = new ArrayAdapter(getActivity(),R.layout.spinner_busca,listDatas);
+        spDatas.setAdapter(adapterDatas);
+
+        adapterHoras = new ArrayAdapter (getActivity(), R.layout.spinner_busca,listHoras);
+        spHoras.setAdapter(adapterHoras);
+
+        //recuperar especialidades do firebase especialidade
+        Preferencias preferencias = new Preferencias(getActivity());
+        firebase = ConfiguracaoFirebase.getFirebase()
+                .child("medicos")
+                .child(especialidadeSelect)
+                .child(estadoSelect)
+                .child(cidadeSelect)
+                .child(idNomeSelect)
+                .child("Agenda");
+        firebase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                listDatas.clear();
+                listDatas.add("Escolha uma Data");
+                for(DataSnapshot dados: dataSnapshot.getChildren() ){
+                    ListadeDatas espec = dados.getValue(ListadeDatas.class);
+                    listDatas.add(espec.getDatas().toString());
+                }
+                adapterDatas.notifyDataSetChanged();
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
+        spDatas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                //String dataselecionada = (String) spDatas.getSelectedItem();
+                //dataselecionada = "D" + dataselecionada.substring(6,9)
+                   //     + dataselecionada.substring(3,4) + dataselecionada.substring(0,1);
+                firebase = ConfiguracaoFirebase.getFirebase()
+                        .child("medicos")
+                        .child(especialidadeSelect)
+                        .child(estadoSelect)
+                        .child(cidadeSelect)
+                        .child(idNomeSelect)
+                        .child("Agenda")
+                        .child("D20170930")
+                        .child("Horarios");
+                firebase.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        listHoras.clear();
+                        listHoras.add("Escolha um Horário");
+                        for(DataSnapshot dados: dataSnapshot.getChildren() ){
+                            ListadeHoras listadeHoras = dados.getValue(ListadeHoras.class);
+                            listHoras.add(listadeHoras.getHora().toString());
+                        }
+                        adapterHoras.notifyDataSetChanged();
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+
+        return view;
 
     }
-
 }

@@ -1,21 +1,56 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/Bairro"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="crapida.app.consultarapida.fragment.ConsultorioAgendamento">
+    tools:context="crapida.app.consultarapida.fragment.ConsultorioAgendamento"
+    tools:layout_editor_absoluteY="25dp"
+    tools:layout_editor_absoluteX="0dp">
 
     <!-- TODO: Update blank fragment layout -->
-
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Agendamento"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <Spinner
+        android:id="@+id/spDatas"
+        android:layout_width="0dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="148dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="32dp"
+        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_marginRight="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp" />
+
+    <Spinner
+        android:id="@+id/spHora"
+        android:layout_width="0dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spDatas"
+        android:layout_marginLeft="32dp"
+        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_marginRight="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp" />
+
+    <Button
+        android:id="@+id/btpesquisar"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="37dp"
+        android:background="@drawable/button"
+        android:text="PESQUISAR"
+        android:textColor="@android:color/white"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spHora"
+        android:layout_marginLeft="32dp"
+        app:layout_constraintHorizontal_bias="1.0"
+        android:layout_marginRight="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp" />
+
 </android.support.constraint.ConstraintLayout>
