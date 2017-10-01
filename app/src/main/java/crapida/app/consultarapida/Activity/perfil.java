@@ -55,6 +55,18 @@ public class perfil extends Activity {
     private TextView tvId;
     private Button botaoLogoff;
 
+    //Infos coletadas do Facebook
+    private TextView fbId;
+    private TextView fbName;
+    private TextView fbFirstName;
+    private TextView fbLastName;
+    private TextView fbGender;
+    private TextView fbLocale;
+    private TextView fbTimezone;
+    private TextView fbUpdatedTime;
+    private TextView fbVerified;
+
+
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener firebaseAuthStateListener;
     private FirebaseUser firebaseUser;
@@ -218,6 +230,10 @@ public class perfil extends Activity {
         tvEmail.setText(this.firebaseUser.getEmail());
         tvId.setText(this.firebaseUser.getUid());
         Glide.with(perfil.this).load(this.firebaseUser.getPhotoUrl()).into(ivFoto);
+
+        //exibir dados coletados do FB
+        //fbName.setText(this.firebaseUser.getDisplayName());
+
     }
 
     private void inicializarComponentes() {
@@ -225,6 +241,16 @@ public class perfil extends Activity {
         tvEmail = (TextView) findViewById(R.id.tvEmail);
         tvId = (TextView) findViewById(R.id.tvId);
         botaoLogoff = (Button) findViewById(R.id.botaoLogoff);
+        fbId = (TextView) findViewById(R.id.tvFbId);
+        fbName = (TextView) findViewById(R.id.tvFbName);
+        fbFirstName = (TextView) findViewById(R.id.tvFbFirstName);
+        fbLastName = (TextView) findViewById(R.id.tvFbLastName);
+        fbGender = (TextView) findViewById(R.id.tvFbGender);
+        fbLocale = (TextView) findViewById(R.id.tvFbLocale);
+        fbTimezone = (TextView) findViewById(R.id.tvFbTimezone);
+        fbUpdatedTime = (TextView) findViewById(R.id.tvFbUpdatedTime);
+        fbVerified = (TextView) findViewById(R.id.tvFbVerified);
+
     }
 
     protected void onStart(){
@@ -236,5 +262,6 @@ public class perfil extends Activity {
     protected void onStop() {
         super.onStop();
         firebaseAuth.removeAuthStateListener(firebaseAuthStateListener);
+        LoginManager.getInstance().logOut();
     }
 }

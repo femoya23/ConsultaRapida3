@@ -11,7 +11,7 @@ public class usuarioperfil {
     private String celular;
     private String convenio;
     private String plano;
-    private String sexo;
+
 
     public usuarioperfil() {
     }
@@ -64,7 +64,5 @@ public class usuarioperfil {
         this.plano = plano;
     }
 
-    public String getSexo() { return sexo; }
 
-    public void setSexo(String sexo) { this.sexo = sexo; }
 }

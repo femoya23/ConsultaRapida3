@@ -124,7 +124,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void inicializarBotaoFacebook() {
         loginButton = (LoginButton) findViewById(R.id.login_button);
-        loginButton.setReadPermissions("email", "public_profile");
+        loginButton.setReadPermissions("email", "public_profile" );
+
     }
 
     private void inicializarCallback() {
@@ -174,6 +175,22 @@ public class MainActivity extends AppCompatActivity {
     private void alerta(String s) {
         Toast.makeText(MainActivity.this, s, Toast.LENGTH_SHORT).show();
     }
+
+    /**
+     * teste pra finalizar e fazer o logoff do Facebook quando encerrar o app
+     * não está funcionando pois quando ele sai da janela do app pra abrir a janela de confirmação do FB
+     * ele não volta pro app, volta direto para a tela principal do Android
+    @Override
+    protected void onStop() {
+        super.onStop();
+        logout();
+    }
+
+    private void logout() {
+        firebaseAuth.signOut();
+        LoginManager.getInstance().logOut();
+        finish();
+    }*/
 
 
 }
