@@ -1,28 +1,38 @@
 package crapida.app.consultarapida.Activity;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 
 import crapida.app.consultarapida.R;
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
     private EditText email;
     private EditText senha;
     private Button botaocadastrar;
     private Button botaologin;
+    private LoginButton loginButton;
+    private CallbackManager callbackManager;
 
 
     @Override
@@ -30,7 +40,11 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        firebaseAuth = FirebaseAuth.getInstance();
+        //inicializando os componentes
+        inicializarFirebase();
+        inicializarBotaoFacebook();
+        inicializarCallback();
+        clicarBotaoFacebook();
 
         //Referencia Id com Variaveis
         email= (EditText) findViewById(R.id.loginId);
@@ -101,4 +115,65 @@ public class MainActivity extends Activity {
             }
         });
     }
+
+
+
+    private void inicializarFirebase() {
+        firebaseAuth = FirebaseAuth.getInstance();
+    }
+
+    private void inicializarBotaoFacebook() {
+        loginButton = (LoginButton) findViewById(R.id.login_button);
+        loginButton.setReadPermissions("email", "public_profile");
+    }
+
+    private void inicializarCallback() {
+        callbackManager = CallbackManager.Factory.create();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void clicarBotaoFacebook() {
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                firebaseLogin(loginResult.getAccessToken());
+            }
+
+            @Override
+            public void onCancel() {
+                alerta("Login cancelado.");
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                alerta("Erro no login com Facebook.");
+            }
+        });
+    }
+
+    private void firebaseLogin(AccessToken accessToken) {
+        AuthCredential credential = FacebookAuthProvider.getCredential(accessToken.getToken());
+        firebaseAuth.signInWithCredential(credential).addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()){
+                    Intent i = new Intent(MainActivity.this, TelaPrin.class);
+                    startActivity(i);
+                }else{
+                    alerta("Erro de autenticação com Firebase.");
+                }
+            }
+        });
+    }
+
+    private void alerta(String s) {
+        Toast.makeText(MainActivity.this, s, Toast.LENGTH_SHORT).show();
+    }
+
+
 }

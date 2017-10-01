@@ -1,29 +1,31 @@
 package crapida.app.consultarapida.Activity;
 
 import android.app.Activity;
-import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.support.annotation.NonNull;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.facebook.login.LoginManager;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.StringTokenizer;
 
 import crapida.app.consultarapida.Model.ConfiguracaoFirebase;
 import crapida.app.consultarapida.Model.Convenio;
-import crapida.app.consultarapida.Model.Espec;
-import crapida.app.consultarapida.Model.Estado;
 import crapida.app.consultarapida.Model.Plano;
-import crapida.app.consultarapida.Model.Preferencias;
 import crapida.app.consultarapida.R;
 
 /**
@@ -39,12 +41,25 @@ public class perfil extends Activity {
     private ArrayAdapter adapterConvenio;
     private ArrayAdapter adapterPlano;
     private DatabaseReference firebase;
+    //teste de exibição de foto e dados do Facebook
+    private ImageView ivFoto;
+    private TextView tvEmail;
+    private TextView tvId;
+    private Button botaoLogoff;
+
+    private FirebaseAuth firebaseAuth;
+    private FirebaseAuth.AuthStateListener firebaseAuthStateListener;
+    private FirebaseUser firebaseUser;
+
 
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil);
 
+        inicializarComponentes();
+        inicializarFirebase();
+        clicarBotaoLogout();
 
         //Instancia o Array List
         convenio = new ArrayList<>();
@@ -118,5 +133,60 @@ public class perfil extends Activity {
         });
 
 
+    }
+
+    private void clicarBotaoLogout() {
+        botaoLogoff.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logout();
+            }
+        });
+    }
+
+    private void logout() {
+        firebaseAuth.signOut();
+        LoginManager.getInstance().logOut();
+        Intent i = new Intent(perfil.this, MainActivity.class);
+        startActivity(i);
+    }
+
+    private void inicializarFirebase() {
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseAuthStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                firebaseUser = firebaseAuth.getCurrentUser();
+                if (firebaseUser !=null){
+                    exibirDados(firebaseUser);
+                }else{
+                    finish();
+                }
+            }
+        };
+    }
+
+    private void exibirDados(FirebaseUser firebaseUser) {
+        tvEmail.setText(this.firebaseUser.getEmail());
+        tvId.setText(this.firebaseUser.getUid());
+        Glide.with(perfil.this).load(this.firebaseUser.getPhotoUrl()).into(ivFoto);
+    }
+
+    private void inicializarComponentes() {
+        ivFoto = (ImageView) findViewById(R.id.ivFoto);
+        tvEmail = (TextView) findViewById(R.id.tvEmail);
+        tvId = (TextView) findViewById(R.id.tvId);
+        botaoLogoff = (Button) findViewById(R.id.botaoLogoff);
+    }
+
+    protected void onStart(){
+        super.onStart();
+        firebaseAuth.addAuthStateListener(firebaseAuthStateListener);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        firebaseAuth.removeAuthStateListener(firebaseAuthStateListener);
     }
 }
