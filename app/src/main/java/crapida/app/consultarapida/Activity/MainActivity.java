@@ -13,7 +13,6 @@ import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
-import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -46,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         inicializarBotaoFacebook();
         inicializarCallback();
         clicarBotaoFacebook();
+
 
         //Referencia Id com Variaveis
         email= (EditText) findViewById(R.id.loginId);
@@ -118,7 +118,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     private void inicializarFirebase() {
         firebaseAuth = FirebaseAuth.getInstance();
     }
@@ -182,8 +181,6 @@ public class MainActivity extends AppCompatActivity {
      * não está funcionando pois quando ele sai da janela do app pra abrir a janela de confirmação do FB
      * ele não volta pro app, volta direto para a tela principal do Android
      *
-     **/
-
     @Override
     protected void onDestroy(){
         super.onDestroy();
@@ -195,6 +192,6 @@ public class MainActivity extends AppCompatActivity {
         LoginManager.getInstance().logOut();
         finish();
     }
-
+     **/
 
 }

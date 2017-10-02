@@ -260,8 +260,8 @@ public class perfil extends Activity {
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onDestroy() {
+        super.onDestroy();
         firebaseAuth.removeAuthStateListener(firebaseAuthStateListener);
         LoginManager.getInstance().logOut();
     }

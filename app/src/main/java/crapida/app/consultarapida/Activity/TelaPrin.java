@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 
 import crapida.app.consultarapida.Adapter.TabAdapter;
@@ -65,6 +66,7 @@ public class TelaPrin extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.item_sair:
                 deslogarUsuario();
+                finish();
                 return true;
             case R.id.action_settings:
                 abrirPerfil();
@@ -77,9 +79,10 @@ public class TelaPrin extends AppCompatActivity {
 
     public void deslogarUsuario(){
         usuarioAutenticacao.signOut();
-        Intent intent = new Intent(TelaPrin.this, MainActivity.class);
-        startActivity(intent);
-        finish();
+        LoginManager.getInstance().logOut();
+        //Intent intent = new Intent(TelaPrin.this, MainActivity.class);
+        //startActivity(intent);
+        //finish();
     }
 
     public void abrirPerfil(){
