@@ -13,6 +13,7 @@ import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -180,9 +181,12 @@ public class MainActivity extends AppCompatActivity {
      * teste pra finalizar e fazer o logoff do Facebook quando encerrar o app
      * não está funcionando pois quando ele sai da janela do app pra abrir a janela de confirmação do FB
      * ele não volta pro app, volta direto para a tela principal do Android
+     *
+     **/
+
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onDestroy(){
+        super.onDestroy();
         logout();
     }
 
@@ -190,7 +194,7 @@ public class MainActivity extends AppCompatActivity {
         firebaseAuth.signOut();
         LoginManager.getInstance().logOut();
         finish();
-    }*/
+    }
 
 
 }

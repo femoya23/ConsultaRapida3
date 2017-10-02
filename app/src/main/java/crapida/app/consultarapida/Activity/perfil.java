@@ -232,7 +232,8 @@ public class perfil extends Activity {
         Glide.with(perfil.this).load(this.firebaseUser.getPhotoUrl()).into(ivFoto);
 
         //exibir dados coletados do FB
-        //fbName.setText(this.firebaseUser.getDisplayName());
+        fbName.setText(this.firebaseUser.getDisplayName());
+        fbId.setText(this.firebaseUser.getProviderId());
 
     }
 
