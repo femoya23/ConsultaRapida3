@@ -12,4 +12,8 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="HintEditText">
+        <item name="android:textColorHint">#ffffff</item> // Cor texto(hint) sem foco
+    </style>
+
 </resources>

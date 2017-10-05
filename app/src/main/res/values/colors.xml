@@ -5,7 +5,7 @@
     <color name="colorAccent">#48a999</color>
     <color name="texto">#004d40</color>
     <color name="colorBackground">#a7ffeb</color>
-    <color name="botaoSecundario">#26A69A</color>
-    <color name="textVazado">#FFFFFF</color>
+    <color name="botaoSecundario">#26a69a</color>
+    <color name="textoVazado">#ffffff</color>
 
 </resources>
