@@ -1,8 +1,10 @@
 package crapida.app.consultarapida.fragment;
 
 
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.AdapterView;
 import com.google.firebase.database.DataSnapshot;
@@ -15,6 +17,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
+
+
 import java.util.ArrayList;
 import crapida.app.consultarapida.Model.ConfiguracaoFirebase;
 import crapida.app.consultarapida.Model.ListadeDatas;
@@ -39,7 +44,8 @@ public class ConsultorioAgendamento extends Fragment {
     private ArrayList<String> listDatas;
     private ArrayList<String> listHoras;
     private DatabaseReference firebase;
-    private Button botaopesquisar;
+    private Button botaoagendar;
+    private AlertDialog.Builder dialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -61,7 +67,7 @@ public class ConsultorioAgendamento extends Fragment {
         //Referencia objeto
         spDatas = (Spinner) view.findViewById(R.id.spDatas);
         spHoras = (Spinner) view.findViewById(R.id.spHora);
-        botaopesquisar = (Button) view.findViewById(R.id.btpesquisar);
+        botaoagendar = (Button) view.findViewById(R.id.btagendar);
 
         //Monta Spinner
         adapterDatas = new ArrayAdapter(getActivity(),R.layout.spinner_busca,listDatas);
@@ -97,10 +103,11 @@ public class ConsultorioAgendamento extends Fragment {
 
         spDatas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
+
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                //String dataselecionada = (String) spDatas.getSelectedItem();
-                //dataselecionada = "D" + dataselecionada.substring(6,9)
-                   //     + dataselecionada.substring(3,4) + dataselecionada.substring(0,1);
+
+                String dataselecionada = (String) spDatas.getSelectedItem();
+                dataselecionada = "D" + dataselecionada.substring(6,10) + dataselecionada.substring(3,5) + dataselecionada.substring(0,2);
                 firebase = ConfiguracaoFirebase.getFirebase()
                         .child("medicos")
                         .child(especialidadeSelect)
@@ -108,7 +115,7 @@ public class ConsultorioAgendamento extends Fragment {
                         .child(cidadeSelect)
                         .child(idNomeSelect)
                         .child("Agenda")
-                        .child("D20170930")
+                        .child(dataselecionada)
                         .child("Horarios");
                 firebase.addValueEventListener(new ValueEventListener() {
                     @Override
@@ -131,7 +138,47 @@ public class ConsultorioAgendamento extends Fragment {
             }
         });
 
+        botaoagendar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                //Criar Alert Dialog
+                dialog = new AlertDialog.Builder(getActivity());
+
+                //Configurar Alert Dialog
+                dialog.setTitle("Confirmação de Consulta");
+                dialog.setMessage("Deseja confirmar sua consulta no " + idNomeSelect+" para o dia " + spDatas.getSelectedItem()
+                + " as " + spHoras.getSelectedItem() + "?");
+
+                dialog.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Toast.makeText(getActivity(), "Não", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                dialog.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Toast.makeText(getActivity(), "Sim", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                dialog.create();
+                dialog.show();
+
+            }
+        });
+
+
+
+
+
+
         return view;
 
     }
+
+
+
 }
