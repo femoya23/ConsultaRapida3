@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.AdapterView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -46,6 +49,8 @@ public class ConsultorioAgendamento extends Fragment {
     private DatabaseReference firebase;
     private Button botaoagendar;
     private AlertDialog.Builder dialog;
+    private String dataselecionada;
+    private String horaselect;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -106,7 +111,7 @@ public class ConsultorioAgendamento extends Fragment {
 
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                String dataselecionada = (String) spDatas.getSelectedItem();
+                dataselecionada = (String) spDatas.getSelectedItem();
                 dataselecionada = "D" + dataselecionada.substring(6,10) + dataselecionada.substring(3,5) + dataselecionada.substring(0,2);
                 firebase = ConfiguracaoFirebase.getFirebase()
                         .child("medicos")
@@ -124,6 +129,7 @@ public class ConsultorioAgendamento extends Fragment {
                         listHoras.add("Escolha um Horário");
                         for(DataSnapshot dados: dataSnapshot.getChildren() ){
                             ListadeHoras listadeHoras = dados.getValue(ListadeHoras.class);
+                            if(listadeHoras.getStatus().equals("1"))
                             listHoras.add(listadeHoras.getHora().toString());
                         }
                         adapterHoras.notifyDataSetChanged();
@@ -142,6 +148,9 @@ public class ConsultorioAgendamento extends Fragment {
             @Override
             public void onClick(View view) {
 
+                horaselect = spHoras.getSelectedItem().toString();
+                horaselect = horaselect.substring(0,2)+horaselect.substring(3,5);
+
                 //Criar Alert Dialog
                 dialog = new AlertDialog.Builder(getActivity());
 
@@ -153,14 +162,14 @@ public class ConsultorioAgendamento extends Fragment {
                 dialog.setNegativeButton("Não", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        Toast.makeText(getActivity(), "Não", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Consulta não agendada", Toast.LENGTH_SHORT).show();
                     }
                 });
 
                 dialog.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        Toast.makeText(getActivity(), "Sim", Toast.LENGTH_SHORT).show();
+                        MarcadordeConsultas(dataselecionada, horaselect);
                     }
                 });
 
@@ -179,6 +188,36 @@ public class ConsultorioAgendamento extends Fragment {
 
     }
 
+public boolean MarcadordeConsultas(String data, String hora){
 
+    FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
+
+    firebase = ConfiguracaoFirebase.getFirebase()
+            .child("medicos")
+            .child(especialidadeSelect)
+            .child(estadoSelect)
+            .child(cidadeSelect)
+            .child(idNomeSelect)
+            .child("Agenda")
+            .child(data)
+            .child("Horarios")
+            .child(hora);
+    firebase.child("Status").setValue("2");
+    firebase.child("Paciente").setValue(currentFirebaseUser.getUid());
+    String idconsulta = data + hora;
+    firebase = ConfiguracaoFirebase.getFirebase()
+            .child("usuarios")
+            .child(currentFirebaseUser.getUid())
+            .child("Consultas")
+            .child(idconsulta);
+    firebase.child("especialidade").setValue(especialidadeSelect);
+    firebase.child("idnome").setValue(idNomeSelect);
+    firebase.child("Data").setValue(data);
+    firebase.child("Hora").setValue(hora);
+    firebase.child("Status").setValue("2");
+
+
+return true;
+}
 
 }

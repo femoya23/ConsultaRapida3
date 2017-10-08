@@ -7,6 +7,15 @@ package crapida.app.consultarapida.Model;
 public class ListadeHoras {
 
     private String Hora;
+    private String Status;
+
+    public String getStatus() {
+        return Status;
+    }
+
+    public void setStatus(String status) {
+        Status = status;
+    }
 
     public ListadeHoras() {
     }
