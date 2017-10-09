@@ -11,7 +11,7 @@
     <Button
         android:id="@+id/botaoSalvarId"
         android:layout_width="0dp"
-        android:layout_height="40dp"
+        android:layout_height="48dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="16dp"
@@ -21,7 +21,9 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/planoId"
-        app:layout_constraintHorizontal_bias="0.0" />
+        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" />
 
     <EditText
         android:id="@+id/emailId"
@@ -37,7 +39,9 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/celularId" />
+        app:layout_constraintTop_toBottomOf="@+id/celularId"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" />
 
     <EditText
         android:id="@+id/celularId"
@@ -53,7 +57,9 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/cidadeId" />
+        app:layout_constraintTop_toBottomOf="@+id/cidadeId"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" />
 
     <EditText
         android:id="@+id/cidadeId"
@@ -69,7 +75,9 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sexoId" />
+        app:layout_constraintTop_toBottomOf="@+id/sexoId"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" />
 
     <EditText
         android:id="@+id/datanascId"
@@ -85,7 +93,9 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/nomeId" />
+        app:layout_constraintTop_toBottomOf="@+id/nomeId"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" />
 
     <EditText
         android:id="@+id/nomeId"
@@ -101,7 +111,9 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/ivFoto" />
+        app:layout_constraintTop_toBottomOf="@+id/ivFoto"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" />
 
     <Spinner
         android:id="@+id/convenioId"
@@ -113,7 +125,9 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailId" />
+        app:layout_constraintTop_toBottomOf="@+id/emailId"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" />
 
     <Spinner
         android:id="@+id/sexoId"
@@ -125,7 +139,9 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/datanascId" />
+        app:layout_constraintTop_toBottomOf="@+id/datanascId"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" />
 
     <Spinner
         android:id="@+id/planoId"
@@ -137,7 +153,9 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/convenioId" />
+        app:layout_constraintTop_toBottomOf="@+id/convenioId"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" />
 
     <ImageView
         android:id="@+id/ivFoto"
@@ -146,7 +164,8 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="16dp"
         android:layout_marginLeft="16dp"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginStart="16dp" />
 
     <TextView
         android:id="@+id/tvEmail"
@@ -155,9 +174,9 @@
         android:gravity="right"
         android:text="TextView"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="0dp"
         android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginEnd="8dp" />
 
     <TextView
         android:id="@+id/tvId"
@@ -165,15 +184,15 @@
         android:layout_height="wrap_content"
         android:text="TextView"
         android:gravity="left"
-        android:layout_marginTop="0dp"
         app:layout_constraintTop_toBottomOf="@+id/tvEmail"
         android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginEnd="8dp" />
 
     <Button
         android:id="@+id/botaoLogoff"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="8dp"
@@ -182,7 +201,9 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/botaoSalvarId" />
+        app:layout_constraintTop_toBottomOf="@+id/botaoSalvarId"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" />
 
     <TextView
         android:id="@+id/tvFbId"
@@ -191,8 +212,8 @@
         android:text="TextView"
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="-1dp"
-        app:layout_constraintTop_toBottomOf="@+id/tvId" />
+        app:layout_constraintTop_toBottomOf="@+id/tvId"
+        android:layout_marginEnd="8dp" />
 
     <TextView
         android:id="@+id/tvFbName"
@@ -201,8 +222,8 @@
         android:text="TextView"
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/tvFbId" />
+        app:layout_constraintTop_toBottomOf="@+id/tvFbId"
+        android:layout_marginEnd="8dp" />
 
     <TextView
         android:id="@+id/tvFbFirstName"
@@ -211,8 +232,8 @@
         android:text="TextView"
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/tvFbName" />
+        app:layout_constraintTop_toBottomOf="@+id/tvFbName"
+        android:layout_marginEnd="8dp" />
 
     <TextView
         android:id="@+id/tvFbLastName"
@@ -221,18 +242,18 @@
         android:text="TextView"
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/tvFbFirstName" />
+        app:layout_constraintTop_toBottomOf="@+id/tvFbFirstName"
+        android:layout_marginEnd="8dp" />
 
     <TextView
         android:id="@+id/tvFbGender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="-1dp"
         android:text="TextView"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvFbLastName" />
+        app:layout_constraintTop_toBottomOf="@+id/tvFbLastName"
+        android:layout_marginEnd="8dp" />
 
     <TextView
         android:id="@+id/tvFbLocale"
@@ -242,17 +263,18 @@
         android:layout_marginTop="8dp"
         android:text="TextView"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/botaoLogoff" />
+        app:layout_constraintTop_toBottomOf="@+id/botaoLogoff"
+        android:layout_marginEnd="7dp" />
 
     <TextView
         android:id="@+id/tvFbTimezone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="0dp"
         android:text="TextView"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvFbLocale" />
+        app:layout_constraintTop_toBottomOf="@+id/tvFbLocale"
+        android:layout_marginEnd="8dp" />
 
     <TextView
         android:id="@+id/tvFbUpdatedTime"
@@ -261,8 +283,8 @@
         android:text="TextView"
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/tvFbTimezone" />
+        app:layout_constraintTop_toBottomOf="@+id/tvFbTimezone"
+        android:layout_marginEnd="8dp" />
 
     <TextView
         android:id="@+id/tvFbVerified"
@@ -271,7 +293,7 @@
         android:text="TextView"
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/tvFbUpdatedTime" />
+        app:layout_constraintTop_toBottomOf="@+id/tvFbUpdatedTime"
+        android:layout_marginEnd="8dp" />
 
 </android.support.constraint.ConstraintLayout>
