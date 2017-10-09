@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
 import com.facebook.AccessToken;
+import com.google.firebase.auth.FirebaseAuth;
 
 import crapida.app.consultarapida.R;
 
@@ -13,7 +14,7 @@ public class Main2Activity extends AppCompatActivity {
 
     // Timer da splash screen
     //private static int SPLASH_TIME_OUT = 3000;
-
+public FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +30,7 @@ public class Main2Activity extends AppCompatActivity {
             public void run() {
                 // Esse método será executado sempre que o timer acabar
                 // E inicia a activity principal
+                firebaseAuth = FirebaseAuth.getInstance();
                 verificaUsuarioLogado();
 
                 // Fecha esta activity
@@ -39,7 +41,7 @@ public class Main2Activity extends AppCompatActivity {
     }
 
     private boolean verificaUsuarioLogado() {
-        if (AccessToken.getCurrentAccessToken()!= null) {
+        if (firebaseAuth.getCurrentUser() != null) {
             Intent intent = new Intent(Main2Activity.this, TelaPrin.class);
             startActivity(intent);
             finish();

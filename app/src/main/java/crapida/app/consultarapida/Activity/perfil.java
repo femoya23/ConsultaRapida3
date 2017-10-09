@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -25,6 +26,7 @@ import java.util.ArrayList;
 
 import crapida.app.consultarapida.Model.ConfiguracaoFirebase;
 import crapida.app.consultarapida.Model.Convenio;
+import crapida.app.consultarapida.Model.DadosPerfil;
 import crapida.app.consultarapida.Model.Plano;
 import crapida.app.consultarapida.R;
 
@@ -66,21 +68,33 @@ public class perfil extends Activity {
     private TextView fbUpdatedTime;
     private TextView fbVerified;
 
+    private EditText nome;
+    private EditText email;
+    private EditText celular;
+    private EditText dataNascimento;
+
 
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener firebaseAuthStateListener;
     private FirebaseUser firebaseUser;
-
-
+    private FirebaseUser fbuser;
+    private String uiduser;
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil);
 
+        fbuser = FirebaseAuth.getInstance().getCurrentUser() ;
+        uiduser = fbuser.getUid();
         //inicializar componentes
         inicializarComponentes();
         inicializarFirebase();
         clicarBotaoLogout();
+        preencherCampos();
+
+
+
+
 
         //Instancia o Array List
         convenio = new ArrayList<>();
@@ -91,6 +105,11 @@ public class perfil extends Activity {
         spConvenio = (Spinner) findViewById(R.id.convenioId);
         spPlano = (Spinner) findViewById(R.id.planoId);
         spSexo = (Spinner) findViewById(R.id.sexoId);
+        nome = (EditText) findViewById(R.id.nomeId);
+        email = (EditText) findViewById(R.id.emailId);
+        celular = (EditText) findViewById(R.id.celularId);
+        dataNascimento = (EditText) findViewById(R.id.datanascId);
+
 
         //Monta Spinner
         adapterConvenio = new ArrayAdapter (perfil.this, R.layout.spinner_busca,convenio);
@@ -194,6 +213,53 @@ public class perfil extends Activity {
 
 
     }
+
+    private void preencherCampos(){
+        final FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
+        try {
+            firebase = ConfiguracaoFirebase.getFirebase()
+                    .child("usuarios")
+                    .child(uiduser);
+        }finally {
+            firebase = ConfiguracaoFirebase.getFirebase()
+                    .child("usuarios");
+            firebase.child(uiduser).child("nome").setValue("");
+        }
+
+
+        firebase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                dataSnapshot.getChildren();
+                DadosPerfil dadosPerfil = dataSnapshot.getValue(DadosPerfil.class);
+                if(dadosPerfil.getNome()!= null) {
+                    nome.setText(dadosPerfil.getNome());
+                }else{
+                    if(currentFirebaseUser.getEmail()!=null)
+                        nome.setText(currentFirebaseUser.getDisplayName());
+                }
+                if(dadosPerfil.getCelular()!= null)
+                    celular.setText(dadosPerfil.getCelular());
+                if(dadosPerfil.getDataNasc()!= null)
+                    dataNascimento.setText(dadosPerfil.getDataNasc());
+                if(dadosPerfil.getEmail()!= null) {
+                    email.setText(dadosPerfil.getEmail());
+                }else {
+                    if (currentFirebaseUser.getEmail()!=null)
+                        email.setText(currentFirebaseUser.getEmail());
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        }
+
+
 
     private void clicarBotaoLogout() {
         botaoLogoff.setOnClickListener(new View.OnClickListener() {
