@@ -99,7 +99,7 @@ public class perfil extends Activity {
         //Instancia o Array List
         convenio = new ArrayList<>();
         plano = new ArrayList<>();
-        sexo = new String[] {"Escolha seu sexo", "Feminino", "Masculino", "Outro"};
+        sexo = new String[] {"Escolha seu sexo", "Feminino", "Masculino"};
 
         //Referencia objeto
         spConvenio = (Spinner) findViewById(R.id.convenioId);
