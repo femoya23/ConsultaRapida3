@@ -2,6 +2,7 @@ package crapida.app.consultarapida.fragment;
 
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -24,7 +25,11 @@ import android.widget.Toast;
 
 
 import java.util.ArrayList;
+
+import crapida.app.consultarapida.Activity.TelaPrin;
+import crapida.app.consultarapida.Activity.perfil;
 import crapida.app.consultarapida.Model.ConfiguracaoFirebase;
+import crapida.app.consultarapida.Model.DadosPerfil;
 import crapida.app.consultarapida.Model.ListadeDatas;
 import crapida.app.consultarapida.Model.ListadeHoras;
 import crapida.app.consultarapida.Model.Preferencias;
@@ -51,6 +56,7 @@ public class ConsultorioAgendamento extends Fragment {
     private AlertDialog.Builder dialog;
     private String dataselecionada;
     private String horaselect;
+    public boolean control;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -80,6 +86,8 @@ public class ConsultorioAgendamento extends Fragment {
 
         adapterHoras = new ArrayAdapter (getActivity(), R.layout.spinner_busca,listHoras);
         spHoras.setAdapter(adapterHoras);
+
+        ValidarPerfil();
 
         //recuperar especialidades do firebase especialidade
         Preferencias preferencias = new Preferencias(getActivity());
@@ -148,16 +156,19 @@ public class ConsultorioAgendamento extends Fragment {
             @Override
             public void onClick(View view) {
 
+
+                if(control){
+
                 horaselect = spHoras.getSelectedItem().toString();
-                horaselect = horaselect.substring(0,2)+horaselect.substring(3,5);
+                horaselect = horaselect.substring(0, 2) + horaselect.substring(3, 5);
 
                 //Criar Alert Dialog
                 dialog = new AlertDialog.Builder(getActivity());
 
                 //Configurar Alert Dialog
                 dialog.setTitle("Confirmação de Consulta");
-                dialog.setMessage("Deseja confirmar sua consulta no " + idNomeSelect+" para o dia " + spDatas.getSelectedItem()
-                + " as " + spHoras.getSelectedItem() + "?");
+                dialog.setMessage("Deseja confirmar sua consulta no " + idNomeSelect + " para o dia " + spDatas.getSelectedItem()
+                        + " as " + spHoras.getSelectedItem() + "?");
 
                 dialog.setNegativeButton("Não", new DialogInterface.OnClickListener() {
                     @Override
@@ -175,19 +186,35 @@ public class ConsultorioAgendamento extends Fragment {
 
                 dialog.create();
                 dialog.show();
+            }else{
 
+                    //Criar Alert Dialog
+                    dialog = new AlertDialog.Builder(getActivity());
+
+                    //Configurar Alert Dialog
+                    dialog.setTitle("Cadastrar Perfil");
+                    dialog.setMessage("Para agendamento de consultas é necessário completar o seu perfil. " +
+                            "Deseja fazer isso agora?");
+
+                    dialog.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                        }
+                    });
+                    dialog.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Intent intent = new Intent(getActivity(),perfil.class);
+                            startActivity(intent);
+                        }
+                    });
+                    dialog.create();
+                    dialog.show();
+                }
             }
         });
-
-
-
-
-
-
         return view;
-
     }
-
 public boolean MarcadordeConsultas(String data, String hora){
 
     FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
@@ -215,9 +242,26 @@ public boolean MarcadordeConsultas(String data, String hora){
     firebase.child("Data").setValue(data);
     firebase.child("Hora").setValue(hora);
     firebase.child("Status").setValue("2");
-
-
 return true;
 }
 
+public void ValidarPerfil(){
+    FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
+    firebase = ConfiguracaoFirebase.getFirebase()
+            .child("usuarios")
+            .child(currentFirebaseUser.getUid());
+
+    firebase.addValueEventListener(new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+            dataSnapshot.getChildren();
+            DadosPerfil dadosPerfil = dataSnapshot.getValue(DadosPerfil.class);
+            if(dadosPerfil.getStatus()==1)
+                control = true;
+        }
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+        }
+    });
+}
 }

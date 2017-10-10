@@ -61,21 +61,32 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp" />
 
-    <EditText
+
+    <Spinner
+        android:id="@+id/estadoId"
+        android:layout_width="0dp"
+        android:layout_height="36dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sexoId"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" />
+
+    <Spinner
         android:id="@+id/cidadeId"
         android:layout_width="0dp"
         android:layout_height="36dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="8dp"
-        android:background="@android:color/white"
-        android:ems="10"
-        android:hint="Cidade"
-        android:inputType="textPersonName"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sexoId"
+        app:layout_constraintTop_toBottomOf="@+id/estadoId"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp" />
 
@@ -167,29 +178,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginStart="16dp" />
 
-    <TextView
-        android:id="@+id/tvEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="right"
-        android:text="TextView"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginEnd="8dp" />
-
-    <TextView
-        android:id="@+id/tvId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:gravity="left"
-        app:layout_constraintTop_toBottomOf="@+id/tvEmail"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginEnd="8dp" />
-
-    <Button
+        <Button
         android:id="@+id/botaoLogoff"
         android:layout_width="0dp"
         android:layout_height="48dp"
@@ -205,95 +194,5 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp" />
 
-    <TextView
-        android:id="@+id/tvFbId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvId"
-        android:layout_marginEnd="8dp" />
-
-    <TextView
-        android:id="@+id/tvFbName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvFbId"
-        android:layout_marginEnd="8dp" />
-
-    <TextView
-        android:id="@+id/tvFbFirstName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvFbName"
-        android:layout_marginEnd="8dp" />
-
-    <TextView
-        android:id="@+id/tvFbLastName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvFbFirstName"
-        android:layout_marginEnd="8dp" />
-
-    <TextView
-        android:id="@+id/tvFbGender"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="8dp"
-        android:text="TextView"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvFbLastName"
-        android:layout_marginEnd="8dp" />
-
-    <TextView
-        android:id="@+id/tvFbLocale"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="7dp"
-        android:layout_marginTop="8dp"
-        android:text="TextView"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/botaoLogoff"
-        android:layout_marginEnd="7dp" />
-
-    <TextView
-        android:id="@+id/tvFbTimezone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="8dp"
-        android:text="TextView"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvFbLocale"
-        android:layout_marginEnd="8dp" />
-
-    <TextView
-        android:id="@+id/tvFbUpdatedTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvFbTimezone"
-        android:layout_marginEnd="8dp" />
-
-    <TextView
-        android:id="@+id/tvFbVerified"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvFbUpdatedTime"
-        android:layout_marginEnd="8dp" />
 
 </android.support.constraint.ConstraintLayout>
