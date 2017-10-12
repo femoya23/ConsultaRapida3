@@ -209,6 +209,7 @@ public class perfil extends Activity {
         firebase = ConfiguracaoFirebase.getFirebase()
                 .child("filtros")
                 .child("estado");
+
         firebase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -335,15 +336,11 @@ public class perfil extends Activity {
 
     private void preencherCampos(){
         final FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
-        try {
-            firebase = ConfiguracaoFirebase.getFirebase()
+                    firebase = ConfiguracaoFirebase.getFirebase()
                     .child("usuarios")
                     .child(uiduser);
-        }finally {
-            firebase = ConfiguracaoFirebase.getFirebase()
-                    .child("usuarios");
-            firebase.child(uiduser).child("nome").setValue("");
-        }
+            Toast.makeText(perfil.this, "recuperou", Toast.LENGTH_SHORT).show();
+
 
         firebase.addValueEventListener(new ValueEventListener() {
             @Override

@@ -21,7 +21,10 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 
+import crapida.app.consultarapida.Model.ConfiguracaoFirebase;
 import crapida.app.consultarapida.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -33,6 +36,9 @@ public class MainActivity extends AppCompatActivity {
     private Button botaologin;
     private LoginButton loginButton;
     private CallbackManager callbackManager;
+    public DatabaseReference firebase;
+    public FirebaseUser fbuser;
+    public String uiduser;
 
 
     @Override
@@ -88,29 +94,32 @@ public class MainActivity extends AppCompatActivity {
         botaocadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //Mensagem Cadastrando
+                Toast.makeText(MainActivity.this, "Cadastrando...Aguarde", Toast.LENGTH_SHORT).show();
 
                 //recebe dados
-
                 String textoemail = email.getText().toString();
                 String textosenha = senha.getText().toString();
-
                 //Cadastro
-
-
                firebaseAuth.createUserWithEmailAndPassword(textoemail,textosenha)
                         .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-
                                 //testa cadastro
-
                                 if(task.isSuccessful()){
                                     Toast.makeText(MainActivity.this, "Usuário Cadastrado com Sucesso", Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(MainActivity.this, TelaPrin.class));
+
+                                    fbuser = FirebaseAuth.getInstance().getCurrentUser() ;
+                                    uiduser = fbuser.getUid();
+
+                                    firebase = ConfiguracaoFirebase.getFirebase()
+                                            .child("usuarios")
+                                            .child(uiduser);
+                                    firebase.child("nome").setValue("");
                                 }else{
                                     Toast.makeText(MainActivity.this, "Erro ao Cadastrar o Usuário", Toast.LENGTH_SHORT).show();
                                 }
-
                             }
                         });
             }
