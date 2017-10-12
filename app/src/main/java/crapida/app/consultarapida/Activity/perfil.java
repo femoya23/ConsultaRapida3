@@ -15,7 +15,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.SimpleResource;
 import com.facebook.login.LoginManager;
 import com.github.rtoshiro.util.format.SimpleMaskFormatter;
 import com.github.rtoshiro.util.format.text.MaskTextWatcher;
@@ -69,16 +68,6 @@ public class perfil extends Activity {
     private TextView tvId;
     private Button botaoLogoff;
 
-    //Infos coletadas do Facebook
-    private TextView fbId;
-    private TextView fbName;
-    private TextView fbFirstName;
-    private TextView fbLastName;
-    private TextView fbGender;
-    private TextView fbLocale;
-    private TextView fbTimezone;
-    private TextView fbUpdatedTime;
-    private TextView fbVerified;
 
     private EditText nome;
     private EditText email;
@@ -92,6 +81,7 @@ public class perfil extends Activity {
     private FirebaseUser fbuser;
     private String uiduser;
     private Button botaoSalvar;
+
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -275,34 +265,38 @@ public class perfil extends Activity {
 
     private boolean TestarPreenchimento(){
         if(nome.getText() == null){
-            Toast.makeText(perfil.this, "Necessário Preencher o Campo Nome", Toast.LENGTH_SHORT).show();
+            alerta("Necessário preencher o campo Nome");
             return false;
         }
         if(dataNascimento.getText() == null){
-            Toast.makeText(perfil.this, "Necessário Preencher o Campo Data de Nascimento", Toast.LENGTH_SHORT).show();
+            alerta("Necessário preencher o campo Data de Nascimento");
             return false;
         }
         if(spSexo.getSelectedItem().equals("Escolha seu sexo")){
-            Toast.makeText(perfil.this, "Necessário Selecionar o Sexo", Toast.LENGTH_SHORT).show();
+            alerta("Necessário preencher o campo Sexo");
             return false;
         }
         if(spEstado.getSelectedItem().equals("Escolha um estado")){
-            Toast.makeText(perfil.this, "Necessário Selecionar o Estado", Toast.LENGTH_SHORT).show();
+            alerta("Necessário preencher o campo Estado");
             return false;
         }
         if(spCidade.getSelectedItem().equals("Escolha uma cidade")){
-            Toast.makeText(perfil.this, "Necessário Selecionar uma Cidade", Toast.LENGTH_SHORT).show();
+            alerta("Necessário preencher o campo Cidade");
             return false;
         }
         if(celular.getText() == null){
-            Toast.makeText(perfil.this, "Necessário Preencher o Campo Celular", Toast.LENGTH_SHORT).show();
+            alerta("Necessário preencher o campo Celular");
             return false;
         }
         if(email.getText() == null){
-            Toast.makeText(perfil.this, "Necessário Preencher o Campo E-mail", Toast.LENGTH_SHORT).show();
+            alerta("Necessário preencher o campo e-mail");
             return false;
         }
         return true;
+    }
+
+    private void alerta(String s) {
+        Toast.makeText(perfil.this, s, Toast.LENGTH_SHORT).show();
     }
 
 
