@@ -82,6 +82,8 @@ public class perfil extends Activity {
     private String uiduser;
     private Button botaoSalvar;
 
+    private int cidadeConfirmada;
+
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -237,6 +239,7 @@ public class perfil extends Activity {
                             cidade.add(cid.getNome());
                         }
                         adapterCidade.notifyDataSetChanged();
+                        if (cidadeConfirmada == 1) preencherCidade();
                     }
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
@@ -389,13 +392,14 @@ public class perfil extends Activity {
                 if(dadosPerfil.getEstado()!= null) {
 
                     int posicaoEstado = 0;
-                    int posicaoCidade = 0;
 
                     while (posicaoEstado <= estado.size()){
 
                         if (estado.get(posicaoEstado).equals(dadosPerfil.getEstado())){
                             spEstado.setSelection(posicaoEstado);
+                            int teste = cidade.size();
                             posicaoEstado = estado.size()+1;
+                            cidadeConfirmada = 1;
 
                         } else{
                             posicaoEstado++;
@@ -403,8 +407,30 @@ public class perfil extends Activity {
                     }
                 }
 
-                //setar no spinner Cidade o valor do Firebase
-                /**if(dadosPerfil.getCidade()!= null) {
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    private void preencherCidade() {
+        final FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        firebase = ConfiguracaoFirebase.getFirebase()
+                .child("usuarios")
+                .child(uiduser);
+
+        firebase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                dataSnapshot.getChildren();
+                DadosPerfil dadosPerfil = dataSnapshot.getValue(DadosPerfil.class);
+
+                if(dadosPerfil.getCidade()!= null) {
 
                     int posicaoCidade = 0;
                     while (posicaoCidade <= cidade.size()){
@@ -417,15 +443,18 @@ public class perfil extends Activity {
                             posicaoCidade++;
                         }
                     }
-                }*/
+                }
+
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
+
         });
 
+        cidadeConfirmada=0;
     }
 
     private void clicarBotaoLogout() {
@@ -466,7 +495,6 @@ public class perfil extends Activity {
 
     private void inicializarComponentes() {
         ivFoto = (ImageView) findViewById(R.id.ivFoto);
-
         botaoLogoff = (Button) findViewById(R.id.botaoLogoff);
     }
 
