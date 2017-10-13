@@ -36,8 +36,6 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private EditText email;
     private EditText senha;
-    private Button botaocadastrar;
-    private Button botaologin;
     private LoginButton loginButton;
     private CallbackManager callbackManager;
     public DatabaseReference firebase;
@@ -60,8 +58,8 @@ public class MainActivity extends AppCompatActivity {
         //Referencia Id com Variaveis
         email= (EditText) findViewById(R.id.loginId);
         senha= (EditText) findViewById(R.id.senhaId);
-        botaocadastrar= (Button) findViewById(R.id.botaoCadastrarId);
-        botaologin= (Button) findViewById(R.id.botaoLoginId);
+        Button botaocadastrar = (Button) findViewById(R.id.botaoCadastrarId);
+        Button botaologin = (Button) findViewById(R.id.botaoLoginId);
 
         //Ação Botao Login
         botaologin.setOnClickListener(new View.OnClickListener() {
