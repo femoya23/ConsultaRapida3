@@ -159,6 +159,7 @@ public class perfil extends Activity {
             }
         });
 
+
         spConvenio.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -261,7 +262,9 @@ public class perfil extends Activity {
                     }
             }
         });
-    }
+
+
+    }//final do método onCreate
 
     private boolean TestarPreenchimento(){
         if(nome.getText() == null){
@@ -320,20 +323,23 @@ public class perfil extends Activity {
                 firebase.child("plano").setValue("Sem Plano");
             else
                 firebase.child("plano").setValue(spPlano.getSelectedItem());
+
             firebase.child("status").setValue(1);
             return true;
         }
-        finally {
+        catch (ArrayIndexOutOfBoundsException e){
+            alerta(e.toString());
             return false;
         }
     }
+
 
     private void preencherCampos(){
         final FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
                     firebase = ConfiguracaoFirebase.getFirebase()
                     .child("usuarios")
                     .child(uiduser);
-            Toast.makeText(perfil.this, "recuperou", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(perfil.this, "recuperou", Toast.LENGTH_SHORT).show();
 
 
         firebase.addValueEventListener(new ValueEventListener() {
@@ -352,12 +358,66 @@ public class perfil extends Activity {
                     celular.setText(dadosPerfil.getCelular());
                 if(dadosPerfil.getDataNasc()!= null)
                     dataNascimento.setText(dadosPerfil.getDataNasc());
+
                 if(dadosPerfil.getEmail()!= null) {
                     email.setText(dadosPerfil.getEmail());
                 }else {
                     if (currentFirebaseUser.getEmail()!=null)
                         email.setText(currentFirebaseUser.getEmail());
                 }
+
+                //setar no spinner Sexo o valor do Firebase
+                if(dadosPerfil.getSexo()!= null) {
+
+                    int posicaoSexo = 0;
+                    while (posicaoSexo <= sexo.length){
+
+                        //String a = sexo[posicaoSexo];
+                        //String b = dadosPerfil.getSexo();
+
+                        if (sexo[posicaoSexo].equals(dadosPerfil.getSexo())){
+                            spSexo.setSelection(posicaoSexo);
+                            posicaoSexo = sexo.length+1;
+
+                        } else{
+                            posicaoSexo++;
+                        }
+                    }
+                }
+
+                //setar no spinner Estado o valor do Firebase
+                if(dadosPerfil.getEstado()!= null) {
+
+                    int posicaoEstado = 0;
+                    int posicaoCidade = 0;
+
+                    while (posicaoEstado <= estado.size()){
+
+                        if (estado.get(posicaoEstado).equals(dadosPerfil.getEstado())){
+                            spEstado.setSelection(posicaoEstado);
+                            posicaoEstado = estado.size()+1;
+
+                        } else{
+                            posicaoEstado++;
+                        }
+                    }
+                }
+
+                //setar no spinner Cidade o valor do Firebase
+                /**if(dadosPerfil.getCidade()!= null) {
+
+                    int posicaoCidade = 0;
+                    while (posicaoCidade <= cidade.size()){
+
+                        if (cidade.get(posicaoCidade).equals(dadosPerfil.getCidade())){
+                            spCidade.setSelection(posicaoCidade);
+                            posicaoCidade = cidade.size()+1;
+
+                        } else{
+                            posicaoCidade++;
+                        }
+                    }
+                }*/
             }
 
             @Override
@@ -366,7 +426,7 @@ public class perfil extends Activity {
             }
         });
 
-        }
+    }
 
     private void clicarBotaoLogout() {
         botaoLogoff.setOnClickListener(new View.OnClickListener() {
