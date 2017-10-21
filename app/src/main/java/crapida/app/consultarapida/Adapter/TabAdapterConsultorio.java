@@ -16,7 +16,7 @@ import crapida.app.consultarapida.fragment.ConsultorioInfo;
 
 public class TabAdapterConsultorio extends FragmentStatePagerAdapter {
 
-    private String[] tituloAbas = {"INFORMAÇÕES","AGENDAMENTO","AVALIAÇÕES"};
+    private String[] tituloAbas = {"INFORMAÇÕES","AGENDAMENTO"};
 
 
 
@@ -34,9 +34,7 @@ public class TabAdapterConsultorio extends FragmentStatePagerAdapter {
                 break;
             case 1 :
                 fragment = new ConsultorioAgendamento();
-                break;
-            case 2 :
-                fragment = new ConsultorioAvaliacao();
+
         }
         return fragment;
     }
