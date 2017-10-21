@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import crapida.app.consultarapida.fragment.BuscaFragment;
 import crapida.app.consultarapida.fragment.Consultas;
+import crapida.app.consultarapida.fragment.ConsultasView;
 
 /**
  * Created by Fernando on 18/09/2017.
@@ -28,7 +29,7 @@ public class TabAdapter extends FragmentStatePagerAdapter {
                 fragment = new BuscaFragment();
                 break;
             case 1 :
-                fragment = new Consultas();
+                fragment = new ConsultasView();
                 break;
         }
         return fragment;

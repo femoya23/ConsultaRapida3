@@ -82,16 +82,16 @@ public class Results extends AppCompatActivity {
                 intent.putExtra("especialidade", especialidade);
                 intent.putExtra("estado", estado);
                 intent.putExtra("cidade", cidade);
-
-
                 startActivity(intent);
-
-
+                killActivity();
             }
         });
 
 
 
 
+    }
+    public void killActivity(){
+        finish();
     }
 }

@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import crapida.app.consultarapida.Activity.TelaPrin;
 import crapida.app.consultarapida.Activity.perfil;
 import crapida.app.consultarapida.Model.ConfiguracaoFirebase;
+import crapida.app.consultarapida.Model.ConsultaConsultorio;
 import crapida.app.consultarapida.Model.DadosPerfil;
 import crapida.app.consultarapida.Model.ListadeDatas;
 import crapida.app.consultarapida.Model.ListadeHoras;
@@ -57,7 +58,8 @@ public class ConsultorioAgendamento extends Fragment {
     private String dataselecionada;
     private String horaselect;
     public boolean control;
-
+    private ConsultaConsultorio consultaConsultorio;
+    private String endcomp;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -70,6 +72,8 @@ public class ConsultorioAgendamento extends Fragment {
         estadoSelect = sharedPreferences.getString("estado","estado");
         especialidadeSelect = sharedPreferences.getString("especialidade","especialidade");
         cidadeSelect = sharedPreferences.getString("cidade","cidade");
+
+        PreencherEndereco();
 
         //Instancia o Array List
         listDatas = new ArrayList<>();
@@ -215,7 +219,7 @@ public class ConsultorioAgendamento extends Fragment {
         });
         return view;
     }
-public boolean MarcadordeConsultas(String data, String hora){
+public void MarcadordeConsultas(String data, String hora){
 
     FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
 
@@ -241,9 +245,43 @@ public boolean MarcadordeConsultas(String data, String hora){
     firebase.child("idnome").setValue(idNomeSelect);
     firebase.child("Data").setValue(data);
     firebase.child("Hora").setValue(hora);
+    firebase.child("Estado").setValue(estadoSelect);
+    firebase.child("Cidade").setValue(cidadeSelect);
     firebase.child("Status").setValue("2");
-return true;
+    firebase.child("endcomp").setValue(endcomp);
+    firebase.child("Nome").setValue(consultaConsultorio.getNome());
+    killActivity();
+
 }
+
+
+public void PreencherEndereco(){
+
+    firebase = ConfiguracaoFirebase.getFirebase()
+            .child("medicos")
+            .child(especialidadeSelect)
+            .child(estadoSelect)
+            .child(cidadeSelect)
+            .child(idNomeSelect);
+    firebase.addValueEventListener(new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+            dataSnapshot.getChildren();
+            consultaConsultorio = dataSnapshot.getValue(ConsultaConsultorio.class);
+            String end = consultaConsultorio.getEnd();
+            String num = consultaConsultorio.getNum().toString();
+            String bairro = consultaConsultorio.getBairro();
+            endcomp = end + ", " + num + " - " + bairro;
+
+        }
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+
+        }
+    });
+
+}
+
 
 public void ValidarPerfil(){
     FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
@@ -264,4 +302,7 @@ public void ValidarPerfil(){
         }
     });
 }
+    public void killActivity () {
+getActivity().finish();
+    }
 }
