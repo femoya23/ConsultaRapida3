@@ -11,10 +11,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
-import com.bumptech.glide.Glide;
+
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.HttpMethod;
 import com.facebook.login.LoginManager;
+import com.facebook.login.widget.ProfilePictureView;
 import com.github.rtoshiro.util.format.SimpleMaskFormatter;
 import com.github.rtoshiro.util.format.text.MaskTextWatcher;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,7 +28,9 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
+
 import crapida.app.consultarapida.Model.Cidade;
 import crapida.app.consultarapida.Model.ConfiguracaoFirebase;
 import crapida.app.consultarapida.Model.Convenio;
@@ -31,6 +38,8 @@ import crapida.app.consultarapida.Model.DadosPerfil;
 import crapida.app.consultarapida.Model.Estado;
 import crapida.app.consultarapida.Model.Plano;
 import crapida.app.consultarapida.R;
+
+
 /**
  * Created by wsabo on 23/09/2017.
  */
@@ -52,15 +61,13 @@ public class perfil extends Activity {
     private ArrayAdapter adapterEstado;
     private ArrayAdapter adapterCidade;
     private DatabaseReference firebase;
-    //teste de exibição de foto e dados do Facebook
-    private ImageView ivFoto;
-    private TextView tvEmail;
-    private TextView tvId;
     private Button botaoLogoff;
     private EditText nome;
     private EditText email;
     private EditText celular;
     private EditText dataNascimento;
+    private ImageView ivFoto;
+    private CallbackManager mCallbackManager;
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener firebaseAuthStateListener;
     private FirebaseUser firebaseUser;
@@ -371,6 +378,20 @@ public class perfil extends Activity {
                         }
                     }
                 }
+
+                /* make the API call */
+                new GraphRequest(
+                        AccessToken.getCurrentAccessToken(),
+                        "/{user-id}/picture",
+                        null,
+                        HttpMethod.GET,
+                        new GraphRequest.Callback() {
+                            public void onCompleted(GraphResponse response) {
+                                ProfilePictureView ppv = (ProfilePictureView) findViewById(R.id.ivFoto);
+                                ppv.setProfileId("imagem");
+                            }
+                        }
+                ).executeAsync();
             }
 
             @Override
@@ -380,6 +401,15 @@ public class perfil extends Activity {
         });
 
     }
+
+
+    /*private String recuperaFotoPerfilFacebook(String userID) throws MalformedURLException {
+        Uri.Builder builder = Uri.parse("https://graph.facebook.com").buildUpon();
+        builder.appendPath(userID).appendPath("picture").appendQueryParameter("type", "large");
+        return builder.toString();
+    }*/
+
+
 
     private void preencherCidade() {
         final FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -443,22 +473,22 @@ public class perfil extends Activity {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 firebaseUser = firebaseAuth.getCurrentUser();
-                if (firebaseUser !=null){
+                /*if (firebaseUser !=null){
                     exibirDados(firebaseUser);
                 }else{
                     finish();
-                }
+                }*/
             }
         };
     }
 
-    private void exibirDados(FirebaseUser firebaseUser) {
+    /*private void exibirDados(FirebaseUser firebaseUser) {
 
         Glide.with(perfil.this).load(this.firebaseUser.getPhotoUrl()).into(ivFoto);
-    }
+    }*/
 
     private void inicializarComponentes() {
-        ivFoto = (ImageView) findViewById(R.id.ivFoto);
+        ProfilePictureView ivFoto = (ProfilePictureView) findViewById(R.id.ivFoto);
         botaoLogoff = (Button) findViewById(R.id.botaoLogoff);
     }
 

@@ -152,7 +152,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/convenioId" />
 
-    <ImageView
+    <com.facebook.login.widget.ProfilePictureView
         android:id="@+id/ivFoto"
         android:layout_width="100dp"
         android:layout_height="100dp"
