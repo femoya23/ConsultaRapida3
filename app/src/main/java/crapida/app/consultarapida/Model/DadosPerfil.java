@@ -1,5 +1,7 @@
 package crapida.app.consultarapida.Model;
 
+import com.facebook.login.widget.ProfilePictureView;
+
 /**
  * Created by Fernando on 08/10/2017.
  */
@@ -15,6 +17,7 @@ public class DadosPerfil {
     private String convenio;
     private String plano;
     private int status;
+    private ProfilePictureView fotoUsuario;
 
     public int getStatus() {
         return status;
@@ -97,5 +100,13 @@ public class DadosPerfil {
 
     public void setPlano(String plano) {
         this.plano = plano;
+    }
+
+    public ProfilePictureView getFotoUsuario() {
+        return fotoUsuario;
+    }
+
+    public void setFotoUsuario(ProfilePictureView fotoUsuario) {
+        this.fotoUsuario = fotoUsuario;
     }
 }

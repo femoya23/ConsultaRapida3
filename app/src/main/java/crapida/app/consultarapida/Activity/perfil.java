@@ -13,11 +13,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
-import com.facebook.GraphRequest;
-import com.facebook.GraphResponse;
-import com.facebook.HttpMethod;
 import com.facebook.login.LoginManager;
 import com.facebook.login.widget.ProfilePictureView;
 import com.github.rtoshiro.util.format.SimpleMaskFormatter;
@@ -380,7 +376,7 @@ public class perfil extends Activity {
                 }
 
                 /* make the API call */
-                new GraphRequest(
+                /*new GraphRequest(
                         AccessToken.getCurrentAccessToken(),
                         "/{user-id}/picture",
                         null,
@@ -388,10 +384,10 @@ public class perfil extends Activity {
                         new GraphRequest.Callback() {
                             public void onCompleted(GraphResponse response) {
                                 ProfilePictureView ppv = (ProfilePictureView) findViewById(R.id.ivFoto);
-                                ppv.setProfileId("imagem");
+                                ppv.setProfileId();
                             }
                         }
-                ).executeAsync();
+                ).executeAsync();*/
             }
 
             @Override
