@@ -18,6 +18,7 @@ import com.facebook.CallbackManager;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.HttpMethod;
+import com.facebook.Profile;
 import com.facebook.login.LoginManager;
 import com.facebook.login.widget.ProfilePictureView;
 import com.github.rtoshiro.util.format.SimpleMaskFormatter;
@@ -388,7 +389,9 @@ public class perfil extends Activity {
                         new GraphRequest.Callback() {
                             public void onCompleted(GraphResponse response) {
                                 ProfilePictureView ppv = (ProfilePictureView) findViewById(R.id.ivFoto);
-                                ppv.setProfileId(userID.getuser()); //aqui entra uma String com o id do usuário, mas o problema é que o id do usuário tá na MainActivity dentro do Bundle paramenters
+                                Profile profile = Profile.getCurrentProfile();
+
+                                ppv.setProfileId(profile.getId()); //aqui entra uma String com o id do usuário, mas o problema é que o id do usuário tá na MainActivity dentro do Bundle paramenters
                             }
                         }
                 ).executeAsync();
