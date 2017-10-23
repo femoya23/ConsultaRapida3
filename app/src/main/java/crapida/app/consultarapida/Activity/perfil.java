@@ -14,7 +14,6 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
-import com.facebook.CallbackManager;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.HttpMethod;
@@ -46,6 +45,7 @@ import crapida.app.consultarapida.R;
  * Created by wsabo on 23/09/2017.
  */
 public class perfil extends Activity {
+
     private Spinner spConvenio;
     private Spinner spPlano;
     private Spinner spSexo;
@@ -69,7 +69,6 @@ public class perfil extends Activity {
     private EditText celular;
     private EditText dataNascimento;
     private ImageView ivFoto;
-    private CallbackManager mCallbackManager;
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener firebaseAuthStateListener;
     private FirebaseUser firebaseUser;
