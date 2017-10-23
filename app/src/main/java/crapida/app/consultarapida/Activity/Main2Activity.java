@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
 import com.facebook.AccessToken;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 
 import crapida.app.consultarapida.R;
@@ -21,6 +22,7 @@ public FirebaseAuth firebaseAuth;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
+        FirebaseApp.initializeApp(this);
 
         new Handler().postDelayed(new Runnable() {
             /*

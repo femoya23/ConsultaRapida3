@@ -23,6 +23,7 @@ import com.facebook.login.LoginManager;
 import com.facebook.login.widget.ProfilePictureView;
 import com.github.rtoshiro.util.format.SimpleMaskFormatter;
 import com.github.rtoshiro.util.format.text.MaskTextWatcher;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -81,6 +82,8 @@ public class perfil extends Activity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil);
+
+        FirebaseApp.initializeApp(this);
 
         fbuser = FirebaseAuth.getInstance().getCurrentUser() ;
         uiduser = fbuser.getUid();
@@ -390,8 +393,9 @@ public class perfil extends Activity {
                             public void onCompleted(GraphResponse response) {
                                 ProfilePictureView ppv = (ProfilePictureView) findViewById(R.id.ivFoto);
                                 Profile profile = Profile.getCurrentProfile();
-
-                                ppv.setProfileId(profile.getId()); //aqui entra uma String com o id do usuário, mas o problema é que o id do usuário tá na MainActivity dentro do Bundle paramenters
+                               if(profile!=null)
+                                ppv.setProfileId(profile.getId());
+                                //aqui entra uma String com o id do usuário, mas o problema é que o id do usuário tá na MainActivity dentro do Bundle paramenters
                             }
                         }
                 ).executeAsync();

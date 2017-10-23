@@ -11,6 +11,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import crapida.app.consultarapida.Adapter.TabAdapterConsultorio;
 import crapida.app.consultarapida.Model.ConfiguracaoFirebase;
@@ -37,7 +39,7 @@ public class Consultorio extends AppCompatActivity {
         setContentView(R.layout.activity_tela_prin);
 
 
-
+        FirebaseApp.initializeApp(this);
 
 
         //Recebe Extras

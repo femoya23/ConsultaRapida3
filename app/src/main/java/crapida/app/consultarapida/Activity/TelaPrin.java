@@ -12,6 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.facebook.login.LoginManager;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 
 import crapida.app.consultarapida.Adapter.TabAdapter;
@@ -30,6 +31,7 @@ public class TelaPrin extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tela_prin);
 
+        FirebaseApp.initializeApp(this);
         usuarioAutenticacao = ConfiguracaoFirebase.getFirebaseAutenticacao();
         viewPager = (ViewPager) findViewById(R.id.vp_pagina);
         slidingTabLayout = (SlidingTabLayout) findViewById(R.id.stl_tabs);

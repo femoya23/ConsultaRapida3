@@ -8,15 +8,17 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import crapida.app.consultarapida.Model.ConfiguracaoFirebase;
+import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.StorageReference;
 import crapida.app.consultarapida.Model.ConsultaConsultorio;
 import crapida.app.consultarapida.R;
-
 
 /**
  * A simple {@link Fragment} subclass.
@@ -40,7 +42,7 @@ public class ConsultorioInfo extends Fragment{
     public String bdNum;
     public String bdidNome;
     public TextView listaconvenio;
-
+    private StorageReference mStorageRef;
 
     @Override
 
@@ -48,9 +50,6 @@ public class ConsultorioInfo extends Fragment{
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_consultorio_info, container, false);
-
-
-        //Referencia Objeto
 
         //listaconvenio = (TextView) view.findViewById(R.id.conveniosId);
 

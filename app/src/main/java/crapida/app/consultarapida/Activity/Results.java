@@ -12,6 +12,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DatabaseReference;
 import crapida.app.consultarapida.R;
 
@@ -30,6 +32,8 @@ public class Results extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.results);
+
+        FirebaseApp.initializeApp(this);
 
         //Recupera dados da pesquisa
         Bundle extra = getIntent().getExtras();
