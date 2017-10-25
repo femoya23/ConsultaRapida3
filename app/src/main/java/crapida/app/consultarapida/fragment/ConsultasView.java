@@ -1,13 +1,17 @@
 package crapida.app.consultarapida.fragment;
 
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,6 +29,7 @@ import crapida.app.consultarapida.Model.ConsultasExibicao;
 import crapida.app.consultarapida.R;
 
 import static crapida.app.consultarapida.R.id.nome;
+import static crapida.app.consultarapida.R.id.spDatas;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -48,6 +53,7 @@ public class ConsultasView extends Fragment {
     private String dataHora;
     private ArrayList<ConsultasExibicao> consultas;
     private ListView lista;
+    private AlertDialog.Builder dialog;
     public ConsultasView() {
         // Required empty public constructor
     }
@@ -75,7 +81,33 @@ public class ConsultasView extends Fragment {
 
         adicionarConsultas();
 
-        lista
+        lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                dialog = new AlertDialog.Builder(getActivity());
+
+                //Configurar Alert Dialog
+                dialog.setTitle("Consulta em"+ consultas.get(position).getDataHora());
+                dialog.setMessage("Deseja confirmar sua consulta no ");
+
+                dialog.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Toast.makeText(getActivity(), "Consulta não agendada", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                dialog.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+
+                dialog.create();
+                dialog.show();
+            }
+        });
 
         return view;
     }
