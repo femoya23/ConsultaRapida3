@@ -74,6 +74,9 @@ public class ConsultasView extends Fragment {
         lista = (ListView) view.findViewById(R.id.consultasId);
 
         adicionarConsultas();
+
+        lista
+
         return view;
     }
 
@@ -103,7 +106,12 @@ public class ConsultasView extends Fragment {
                 hora.add(horaAjustada);
                 data.add(dataAjustada);
                 especialidade.add(consultaAgendada.getEspecialidade());
-                ConsultasExibicao e = new ConsultasExibicao(consultaAgendada.getNome(), consultaAgendada.getEndcomp(), consultaAgendada.getCidade(), dataHora, R.drawable.logo);
+                    ConsultasExibicao e;
+                    if(consultaAgendada.getStatus().equals("2")) {
+                        e = new ConsultasExibicao(consultaAgendada.getNome(), consultaAgendada.getEndcomp(), consultaAgendada.getCidade(), dataHora, R.mipmap.ic_agendado);
+                    }else{
+                        e = new ConsultasExibicao(consultaAgendada.getNome(), consultaAgendada.getEndcomp(), consultaAgendada.getCidade(), dataHora, R.mipmap.ic_confirmada);
+                    }
                 consultas.add(e);
                }
 

@@ -68,7 +68,7 @@ public class perfil extends Activity {
     private EditText email;
     private EditText celular;
     private EditText dataNascimento;
-    private ImageView ivFoto;
+    private ProfilePictureView ivFoto;
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener firebaseAuthStateListener;
     private FirebaseUser firebaseUser;
@@ -494,7 +494,7 @@ public class perfil extends Activity {
     }*/
 
     private void inicializarComponentes() {
-        ProfilePictureView ivFoto = (ProfilePictureView) findViewById(R.id.ivFoto);
+        ivFoto = (ProfilePictureView) findViewById(R.id.ivFoto);
         botaoLogoff = (Button) findViewById(R.id.botaoLogoff);
     }
 
