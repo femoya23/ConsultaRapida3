@@ -83,24 +83,43 @@ public class ConsultasView extends Fragment {
 
         lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
                 dialog = new AlertDialog.Builder(getActivity());
 
                 //Configurar Alert Dialog
-                dialog.setTitle("Consulta em"+ consultas.get(position).getDataHora());
-                dialog.setMessage("Deseja confirmar sua consulta no ");
-
-                dialog.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+                dialog.setTitle(consultas.get(position).getDataHora());
+                if(consultas.get(position).getImagem()==R.mipmap.ic_agendado)
+                dialog.setMessage("Sua consulta no consultório " + consultas.get(position).getNome() +
+                 " ainda não foi confirmada. Para cancelar sua consulta clique no botão cancelar.");
+                if(consultas.get(position).getImagem()==R.mipmap.ic_confirmada)
+                    dialog.setMessage("Sua consulta no consultório " + consultas.get(position).getNome() +
+                            " está confirmada. Para cancelar sua consulta clique no botão cancelar.");
+                dialog.setNegativeButton("Cancelar Consulta", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        Toast.makeText(getActivity(), "Consulta não agendada", Toast.LENGTH_SHORT).show();
+                        dialog.setTitle("Confirmação");
+                        dialog.setMessage("Tem certeza que deseja cancelar sua consulta?");
+                        dialog.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
+                        dialog.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                cancelarConsulta(especialidade.get(position).toString(),
+                                        estado.get(position).toString(),cidade.get(position).toString()
+                                        ,data.get(position).toString(), hora.get(position).toString(), idnome.get(position).toString());
+                            }
+                        });
+                        dialog.create();
+                        dialog.show();
                     }
                 });
-
-                dialog.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                dialog.setPositiveButton("Sair", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
                     }
                 });
 
@@ -123,7 +142,13 @@ public class ConsultasView extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 //Limpar lista
-
+                consultas.clear();
+                idnome.clear();
+                estado.clear();
+                cidade.clear();
+                hora.clear();
+                data.clear();
+                especialidade.clear();
                 //Listar contatos
                 for (DataSnapshot dados : dataSnapshot.getChildren()) {
                 consultaAgendada = dados.getValue(ConsultaAgendada.class);
@@ -161,4 +186,37 @@ public class ConsultasView extends Fragment {
         lista.setAdapter(adapter);
     }
 
+    public void cancelarConsulta(String espec, String estadoCanc, String cidadeCanc, String dataCanc, String horaCanc, String idnomeCanc ){
+        String dataAjust = transformarData(dataCanc);
+        String horaAjust = transformarHora(horaCanc);
+
+        FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
+
+        firebase = ConfiguracaoFirebase.getFirebase()
+                .child("medicos")
+                .child(espec)
+                .child(estadoCanc)
+                .child(cidadeCanc)
+                .child(idnomeCanc)
+                .child("Agenda")
+                .child(dataAjust)
+                .child("Horarios")
+                .child(horaAjust);
+        firebase.child("Status").setValue("1");
+        firebase.child("Paciente").setValue("");
+        dataCanc = dataAjust+horaAjust;
+        firebase = ConfiguracaoFirebase.getFirebase()
+                .child("usuarios")
+                .child(currentFirebaseUser.getUid())
+                .child("Consultas");
+        firebase.child(dataCanc).removeValue();
+    }
+    public String transformarData (String data){
+        data = "D" + data.substring(6,10) + data.substring(3,5) + data.substring(0,2);
+        return data;
+    }
+    public String transformarHora(String hora){
+        hora = hora.substring(0,2) + hora.substring(3,5);
+        return hora;
+    }
 }

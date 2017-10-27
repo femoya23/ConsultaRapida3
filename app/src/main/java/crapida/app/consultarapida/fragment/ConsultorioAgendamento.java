@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import crapida.app.consultarapida.Activity.Results;
 import crapida.app.consultarapida.Activity.TelaPrin;
 import crapida.app.consultarapida.Activity.perfil;
 import crapida.app.consultarapida.Model.ConfiguracaoFirebase;
@@ -250,6 +251,8 @@ public void MarcadordeConsultas(String data, String hora){
     firebase.child("Status").setValue("2");
     firebase.child("endcomp").setValue(endcomp);
     firebase.child("Nome").setValue(consultaConsultorio.getNome());
+    Intent intent = new Intent(getActivity(), TelaPrin.class);
+    startActivity( intent);
     killActivity();
 
 }
