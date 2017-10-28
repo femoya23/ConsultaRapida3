@@ -32,9 +32,7 @@ public class Results extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.results);
-
         FirebaseApp.initializeApp(this);
-
         //Recupera dados da pesquisa
         Bundle extra = getIntent().getExtras();
         nome = extra.getStringArrayList("nome");
@@ -47,18 +45,13 @@ public class Results extends AppCompatActivity {
         ListView resultsListView = (ListView) findViewById(R.id.results_listview);
 
         HashMap<Object, Object> nameAddresses = new HashMap<>();
-
-
         for (int i=0;i<end.size(); i++){
             nameAddresses.put(nome.get(i), end.get(i));
         }
-
         List<HashMap<String, String>> listItems = new ArrayList<>();
         SimpleAdapter adapter = new SimpleAdapter(this, listItems, R.layout.list_item,
                 new String[]{"First Line", "Second Line"},
                 new int[]{R.id.text1, R.id.text2});
-
-
         Iterator it = nameAddresses.entrySet().iterator();
         while (it.hasNext())
         {
@@ -77,7 +70,6 @@ public class Results extends AppCompatActivity {
         resultsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
                 String nomeSelect = (String) nome.get(position);
                 String idnomeSelect = (String) idnome.get(position);
                 Intent intent = new Intent(Results.this, Consultorio.class );
@@ -90,10 +82,6 @@ public class Results extends AppCompatActivity {
                 killActivity();
             }
         });
-
-
-
-
     }
     public void killActivity(){
         finish();

@@ -102,7 +102,6 @@ public class ConsultasView extends Fragment {
                         dialog.setNegativeButton("Não", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-
                             }
                         });
                         dialog.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
@@ -122,12 +121,10 @@ public class ConsultasView extends Fragment {
                     public void onClick(DialogInterface dialogInterface, int i) {
                     }
                 });
-
                 dialog.create();
                 dialog.show();
             }
         });
-
         return view;
     }
 

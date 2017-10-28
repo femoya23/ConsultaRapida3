@@ -1,6 +1,7 @@
 package crapida.app.consultarapida.fragment;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,6 +15,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
+
 import java.util.ArrayList;
 import crapida.app.consultarapida.Model.Cidade;
 import crapida.app.consultarapida.Model.ConfiguracaoFirebase;
@@ -67,13 +70,91 @@ public class BuscaFragment extends Fragment {
         botaopesquisar = (Button) view.findViewById(R.id.btpesquisar);
 
         //Monta Spinner
-        adapterespecialidade = new ArrayAdapter(getActivity(),R.layout.spinner_busca,especialidade);
+        adapterespecialidade = new ArrayAdapter <String> (getActivity(),R.layout.spinner_busca,especialidade){
+            public boolean isEnabled(int position){
+                if(position == 0)
+                {
+                    // Disable the first item from Spinner
+                    // First item will be use for hint
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            public View getDropDownView(int position, View convertView,
+                                        ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if(position == 0){
+                    // Set the hint text color gray
+                    tv.setTextColor(Color.GRAY);
+                }
+                else {
+                    tv.setTextColor(Color.BLACK);
+                }
+                return view;
+            }
+        };
         spespecialidade.setAdapter(adapterespecialidade);
 
-        adapterestado = new ArrayAdapter (getActivity(), R.layout.spinner_busca,estados);
+        adapterestado = new ArrayAdapter (getActivity(), R.layout.spinner_busca,estados){
+            public boolean isEnabled(int position){
+                if(position == 0)
+                {
+                    // Disable the first item from Spinner
+                    // First item will be use for hint
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            public View getDropDownView(int position, View convertView,
+                                        ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if(position == 0){
+                    // Set the hint text color gray
+                    tv.setTextColor(Color.GRAY);
+                }
+                else {
+                    tv.setTextColor(Color.BLACK);
+                }
+                return view;
+            }
+        };
         spestado.setAdapter(adapterestado);
 
-        adaptercidade = new ArrayAdapter (getActivity(), R.layout.spinner_busca,cidades);
+        adaptercidade = new ArrayAdapter (getActivity(), R.layout.spinner_busca,cidades){
+            public boolean isEnabled(int position){
+                if(position == 0)
+                {
+                    // Disable the first item from Spinner
+                    // First item will be use for hint
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            public View getDropDownView(int position, View convertView,
+                                        ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if(position == 0){
+                    // Set the hint text color gray
+                    tv.setTextColor(Color.GRAY);
+                }
+                else {
+                    tv.setTextColor(Color.BLACK);
+                }
+                return view;
+            }
+        };
         spcidade.setAdapter(adaptercidade);
 
 
@@ -191,6 +272,7 @@ public class BuscaFragment extends Fragment {
                         //Limpar lista
                         nome.clear();
                         end.clear();
+                        idnome.clear();
                         //Listar contatos
                         for (DataSnapshot dados: dataSnapshot.getChildren() ){
                             ConsultaMedicos consultaMedicos = dados.getValue( ConsultaMedicos.class );
