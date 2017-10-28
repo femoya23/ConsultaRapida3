@@ -409,14 +409,6 @@ public class perfil extends Activity {
     }
 
 
-    /*private String recuperaFotoPerfilFacebook(String userID) throws MalformedURLException {
-        Uri.Builder builder = Uri.parse("https://graph.facebook.com").buildUpon();
-        builder.appendPath(userID).appendPath("picture").appendQueryParameter("type", "large");
-        return builder.toString();
-    }*/
-
-
-
     private void preencherCidade() {
         final FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         firebase = ConfiguracaoFirebase.getFirebase()

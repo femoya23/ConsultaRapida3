@@ -12,25 +12,33 @@
     <TextView
         android:id="@+id/nomeConsultorioInfoId"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:textStyle="bold"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:textAlignment="center"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.SearchResult.Title"
         android:textColor="@color/colorPrimaryDark"
-
-         />
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/enderecoConsultorioInfoId"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:textColor="@color/colorPrimaryDark"
-         />
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.SearchResult.Subtitle"
+        android:textColor="@color/colorPrimaryDark" />
 
     <TextView
         android:id="@+id/experienciaConsultorioInfoId"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:textColor="@color/texto"/>
+        android:layout_height="350dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="4dp"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.SearchResult.Subtitle"
+        android:textColor="@color/texto" />
 
 
 </LinearLayout>
