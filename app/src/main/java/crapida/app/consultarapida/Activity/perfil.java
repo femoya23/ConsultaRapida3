@@ -76,6 +76,7 @@ public class perfil extends Activity {
     private String uiduser;
     private Button botaoSalvar;
     private int cidadeConfirmada;
+    private int planoConfirmada;
 
 
     protected void onCreate(Bundle savedInstanceState){
@@ -169,6 +170,7 @@ public class perfil extends Activity {
                             plano.add(plan.getNome());
                         }
                         adapterPlano.notifyDataSetChanged();
+                        if (planoConfirmada == 1) preencherPlano();
                     }
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
@@ -373,11 +375,24 @@ public class perfil extends Activity {
                     while (posicaoEstado < estado.size()){
                         if (estado.get(posicaoEstado).equals(dadosPerfil.getEstado())){
                             spEstado.setSelection(posicaoEstado);
-                            int teste = cidade.size();
                             posicaoEstado = estado.size()+1;
                             cidadeConfirmada = 1;
                         } else{
                             posicaoEstado++;
+                        }
+                    }
+                }
+
+                //setar no spinner Convenio o valor do Firebase
+                if(dadosPerfil.getConvenio()!= null) {
+                    int posicaoConvenio = 0;
+                    while (posicaoConvenio < convenio.size()){
+                        if (convenio.get(posicaoConvenio).equals(dadosPerfil.getConvenio())){
+                            spConvenio.setSelection(posicaoConvenio);
+                            posicaoConvenio = convenio.size()+1;
+                            planoConfirmada = 1;
+                        } else{
+                            posicaoConvenio++;
                         }
                     }
                 }
@@ -414,39 +429,57 @@ public class perfil extends Activity {
         firebase = ConfiguracaoFirebase.getFirebase()
                 .child("usuarios")
                 .child(uiduser);
-
         firebase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
                 dataSnapshot.getChildren();
                 DadosPerfil dadosPerfil = dataSnapshot.getValue(DadosPerfil.class);
-
                 if(dadosPerfil.getCidade()!= null) {
-
                     int posicaoCidade = 0;
                     while (posicaoCidade <= cidade.size()){
-
                         if (cidade.get(posicaoCidade).equals(dadosPerfil.getCidade())){
                             spCidade.setSelection(posicaoCidade);
                             posicaoCidade = cidade.size()+1;
-
                         } else{
                             posicaoCidade++;
                         }
                     }
                 }
-
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
             }
-
         });
-
         cidadeConfirmada=0;
+    }
+
+    private void preencherPlano() {
+        final FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        firebase = ConfiguracaoFirebase.getFirebase()
+                .child("usuarios")
+                .child(uiduser);
+        firebase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                dataSnapshot.getChildren();
+                DadosPerfil dadosPerfil = dataSnapshot.getValue(DadosPerfil.class);
+                if(dadosPerfil.getPlano()!= null) {
+                    int posicaoPlano = 0;
+                    while (posicaoPlano <= plano.size()){
+                        if (plano.get(posicaoPlano).equals(dadosPerfil.getPlano())){
+                            spPlano.setSelection(posicaoPlano);
+                            posicaoPlano = plano.size()+1;
+                        } else{
+                            posicaoPlano++;
+                        }
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+        planoConfirmada=0;
     }
 
     private void clicarBotaoLogout() {
