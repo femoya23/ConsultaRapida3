@@ -5,17 +5,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -23,9 +15,19 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+
 
 import java.util.ArrayList;
 
+import crapida.app.consultarapida.Activity.Results;
 import crapida.app.consultarapida.Activity.TelaPrin;
 import crapida.app.consultarapida.Activity.perfil;
 import crapida.app.consultarapida.Model.ConfiguracaoFirebase;
@@ -271,10 +273,9 @@ public class ConsultorioAgendamento extends Fragment {
         });
         return view;
     }
-
-    public void MarcadordeConsultas(String data, String hora){
-        FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
-        firebase = ConfiguracaoFirebase.getFirebase()
+public void MarcadordeConsultas(String data, String hora){
+    FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
+    firebase = ConfiguracaoFirebase.getFirebase()
             .child("medicos")
             .child(especialidadeSelect)
             .child(estadoSelect)
@@ -284,75 +285,74 @@ public class ConsultorioAgendamento extends Fragment {
             .child(data)
             .child("Horarios")
             .child(hora);
-        firebase.child("Status").setValue("2");
-        firebase.child("Paciente").setValue(currentFirebaseUser.getUid());
-        String idconsulta = data + hora;
-        firebase = ConfiguracaoFirebase.getFirebase()
+    firebase.child("Status").setValue("2");
+    firebase.child("Paciente").setValue(currentFirebaseUser.getUid());
+    String idconsulta = data + hora;
+    firebase = ConfiguracaoFirebase.getFirebase()
             .child("usuarios")
             .child(currentFirebaseUser.getUid())
             .child("Consultas")
             .child(idconsulta);
-        GravaAgendamento gravaAgendamento = new GravaAgendamento();
-        gravaAgendamento.setEspecialidade(especialidadeSelect);
-        gravaAgendamento.setIdnome(idNomeSelect);
-        gravaAgendamento.setData(data);
-        gravaAgendamento.setHora(hora);
-        gravaAgendamento.setEstado(estadoSelect);
-        gravaAgendamento.setCidade(cidadeSelect);
-        gravaAgendamento.setStatus("2");
-        gravaAgendamento.setEndcomp(endcomp);
-        gravaAgendamento.setNome(consultaConsultorio.getNome());
-        firebase.setValue(gravaAgendamento);
+    GravaAgendamento gravaAgendamento = new GravaAgendamento();
+    gravaAgendamento.setEspecialidade(especialidadeSelect);
+    gravaAgendamento.setIdnome(idNomeSelect);
+    gravaAgendamento.setData(data);
+    gravaAgendamento.setHora(hora);
+    gravaAgendamento.setEstado(estadoSelect);
+    gravaAgendamento.setCidade(cidadeSelect);
+    gravaAgendamento.setStatus("2");
+    gravaAgendamento.setEndcomp(endcomp);
+    gravaAgendamento.setNome(consultaConsultorio.getNome());
+    firebase.setValue(gravaAgendamento);
     }
+public void PreencherEndereco(){
 
-    public void PreencherEndereco(){
-
-        firebase = ConfiguracaoFirebase.getFirebase()
+    firebase = ConfiguracaoFirebase.getFirebase()
             .child("medicos")
             .child(especialidadeSelect)
             .child(estadoSelect)
             .child(cidadeSelect)
             .child(idNomeSelect);
-        firebase.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                dataSnapshot.getChildren();
-                consultaConsultorio = dataSnapshot.getValue(ConsultaConsultorio.class);
-                String end = consultaConsultorio.getEnd();
-                String num = consultaConsultorio.getNum().toString();
-                String bairro = consultaConsultorio.getBairro();
-                endcomp = end + ", " + num + " - " + bairro;
+    firebase.addValueEventListener(new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+            dataSnapshot.getChildren();
+            consultaConsultorio = dataSnapshot.getValue(ConsultaConsultorio.class);
+            String end = consultaConsultorio.getEnd();
+            String num = consultaConsultorio.getNum().toString();
+            String bairro = consultaConsultorio.getBairro();
+            endcomp = end + ", " + num + " - " + bairro;
 
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+        }
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
 
-            }
-        });
+        }
+    });
 
-    }
+}
 
-    public void ValidarPerfil(){
-        FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
-        firebase = ConfiguracaoFirebase.getFirebase()
+
+public void ValidarPerfil(){
+    FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
+    firebase = ConfiguracaoFirebase.getFirebase()
             .child("usuarios")
             .child(currentFirebaseUser.getUid());
 
-        firebase.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                dataSnapshot.getChildren();
-                DadosPerfil dadosPerfil = dataSnapshot.getValue(DadosPerfil.class);
-                if(dadosPerfil.getStatus()==1)
-                    control = true;
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
-    }
-
+    firebase.addValueEventListener(new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+            dataSnapshot.getChildren();
+            DadosPerfil dadosPerfil = dataSnapshot.getValue(DadosPerfil.class);
+            if(dadosPerfil.getStatus()==1)
+                control = true;
+        }
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+        }
+    });
+}
     public void killActivity () {
 getActivity().finish();
     }
-    }
+}
