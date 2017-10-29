@@ -190,7 +190,7 @@ public class ConsultorioAgendamento extends Fragment {
                 firebase.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        listHoras.clear();
+                        //listHoras.clear();
                         listHoras.add("Escolha um Horário");
                         for(DataSnapshot dados: dataSnapshot.getChildren() ){
                             ListadeHoras listadeHoras = dados.getValue(ListadeHoras.class);
