@@ -287,7 +287,7 @@ public class BuscaFragment extends Fragment {
                         intent.putExtra("estado", estadoselecionado);
                         intent.putExtra("cidade", cidadeselecionado);
                         startActivity( intent);
-                        getActivity().finish();
+
               /*          }
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
@@ -297,12 +297,8 @@ public class BuscaFragment extends Fragment {
 
 
                 );*/
-
-
             }
         });
-
         return view;
-
     }
-}
+    }

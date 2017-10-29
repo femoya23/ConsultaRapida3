@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,10 +59,17 @@ public class ConsultasView extends Fragment {
         // Required empty public constructor
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.i("CiclodeVida","Pausei Fragmento");
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        Log.i("CiclodeVida","NASCI fragmento");
         // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_consultas_view, container, false);
@@ -152,19 +160,20 @@ public class ConsultasView extends Fragment {
                 idnome.add(consultaAgendada.getIdnome());
                 estado.add(consultaAgendada.getEstado());
                 cidade.add(consultaAgendada.getCidade());
-                String dataAjustada = consultaAgendada.getData().substring(7,9) + "/" +
-                        consultaAgendada.getData().substring(5,7) + "/" + consultaAgendada.getData().substring(1,5);
-                String horaAjustada = consultaAgendada.getHora().substring(0,2) + ":" +
-                        consultaAgendada.getHora().substring(2,4);
+                String dataAjustada = consultaAgendada.getData().substring(7, 9) + "/" +
+                           consultaAgendada.getData().substring(5, 7) + "/" + consultaAgendada.getData().substring(1, 5);
+                String horaAjustada = consultaAgendada.getHora().substring(0, 2) + ":" +
+                           consultaAgendada.getHora().substring(2, 4);
+
                 dataHora = dataAjustada + " - " + horaAjustada;
                 hora.add(horaAjustada);
                 data.add(dataAjustada);
                 especialidade.add(consultaAgendada.getEspecialidade());
                     ConsultasExibicao e;
-                    if(consultaAgendada.getStatus().equals("2")) {
+                  if(consultaAgendada.getStatus().equals("2")) {
                         e = new ConsultasExibicao(consultaAgendada.getNome(), consultaAgendada.getEndcomp(), consultaAgendada.getCidade(), dataHora, R.mipmap.ic_agendado);
-                    }else{
-                        e = new ConsultasExibicao(consultaAgendada.getNome(), consultaAgendada.getEndcomp(), consultaAgendada.getCidade(), dataHora, R.mipmap.ic_confirmada);
+                   }else{
+                       e = new ConsultasExibicao(consultaAgendada.getNome(), consultaAgendada.getEndcomp(), consultaAgendada.getCidade(), dataHora, R.mipmap.ic_confirmada);
                     }
                 consultas.add(e);
                }
@@ -209,11 +218,19 @@ public class ConsultasView extends Fragment {
         firebase.child(dataCanc).removeValue();
     }
     public String transformarData (String data){
-        data = "D" + data.substring(6,10) + data.substring(3,5) + data.substring(0,2);
+        try {
+            data = "D" + data.substring(6, 10) + data.substring(3, 5) + data.substring(0, 2);
+        }finally {
+
+        }
         return data;
     }
     public String transformarHora(String hora){
-        hora = hora.substring(0,2) + hora.substring(3,5);
+        try {
+            hora = hora.substring(0, 2) + hora.substring(3, 5);
+        }finally {
+
+        }
         return hora;
     }
 }
