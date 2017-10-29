@@ -149,6 +149,7 @@ public class ConsultorioAgendamento extends Fragment {
         ValidarPerfil();
 
         //recuperar especialidades do firebase especialidade
+
         Preferencias preferencias = new Preferencias(getActivity());
         firebase = ConfiguracaoFirebase.getFirebase()
                 .child("medicos")
@@ -192,7 +193,7 @@ public class ConsultorioAgendamento extends Fragment {
                 firebase.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        listHoras.clear();
+                        //listHoras.clear();
                         listHoras.add("Escolha um Horário");
                         for(DataSnapshot dados: dataSnapshot.getChildren() ){
                             ListadeHoras listadeHoras = dados.getValue(ListadeHoras.class);
@@ -210,14 +211,10 @@ public class ConsultorioAgendamento extends Fragment {
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
-
         botaoagendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
                 if(control){
-
                 horaselect = spHoras.getSelectedItem().toString();
                 horaselect = horaselect.substring(0, 2) + horaselect.substring(3, 5);
 
@@ -240,6 +237,9 @@ public class ConsultorioAgendamento extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         MarcadordeConsultas(dataselecionada, horaselect);
+                        Intent intent = new Intent(getActivity(), TelaPrin.class);
+                        startActivity( intent);
+                        killActivity();
                     }
                 });
 
@@ -275,9 +275,7 @@ public class ConsultorioAgendamento extends Fragment {
         return view;
     }
 public void MarcadordeConsultas(String data, String hora){
-
     FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
-
     firebase = ConfiguracaoFirebase.getFirebase()
             .child("medicos")
             .child(especialidadeSelect)
@@ -305,13 +303,8 @@ public void MarcadordeConsultas(String data, String hora){
     firebase.child("Status").setValue("2");
     firebase.child("endcomp").setValue(endcomp);
     firebase.child("Nome").setValue(consultaConsultorio.getNome());
-    Intent intent = new Intent(getActivity(), TelaPrin.class);
-    startActivity( intent);
-    killActivity();
 
 }
-
-
 public void PreencherEndereco(){
 
     firebase = ConfiguracaoFirebase.getFirebase()

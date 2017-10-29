@@ -127,7 +127,6 @@ public class BuscaFragment extends Fragment {
             }
         };
         spestado.setAdapter(adapterestado);
-
         adaptercidade = new ArrayAdapter (getActivity(), R.layout.spinner_busca,cidades){
             public boolean isEnabled(int position){
                 if(position == 0)
@@ -183,7 +182,6 @@ public class BuscaFragment extends Fragment {
         spespecialidade.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
                 firebase = ConfiguracaoFirebase.getFirebase()
                         .child("filtros")
                         .child("estado");
@@ -259,7 +257,7 @@ public class BuscaFragment extends Fragment {
                 final String estadoselecionado = (String) spestado.getSelectedItem();
                 final String cidadeselecionado = (String) spcidade.getSelectedItem();
 
-                firebase = ConfiguracaoFirebase.getFirebase()
+                /*firebase = ConfiguracaoFirebase.getFirebase()
                         .child("medicos")
                         .child(especialidadeselecionado)
                         .child(estadoselecionado)
@@ -279,7 +277,7 @@ public class BuscaFragment extends Fragment {
                             nome.add(consultaMedicos.getNome());
                             end.add(consultaMedicos.getEnd());
                             idnome.add(consultaMedicos.getIdNome());
-                        }
+                        }*/
 
                         Intent intent = new Intent(getActivity(), Results.class);
                         intent.putExtra("nome", nome);
@@ -289,8 +287,8 @@ public class BuscaFragment extends Fragment {
                         intent.putExtra("estado", estadoselecionado);
                         intent.putExtra("cidade", cidadeselecionado);
                         startActivity( intent);
-
-                    }
+                        getActivity().finish();
+              /*          }
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
                     }
@@ -298,7 +296,7 @@ public class BuscaFragment extends Fragment {
 
 
 
-                );
+                );*/
 
 
             }
