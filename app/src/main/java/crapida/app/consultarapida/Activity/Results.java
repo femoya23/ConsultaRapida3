@@ -32,15 +32,13 @@ public class Results extends AppCompatActivity {
     private String cidade;
     private ArrayList nome;
     private ArrayList idnome;
-<<<<<<< HEAD
     private ArrayList end;
     private DatabaseReference firebase;
     public String ARQUIVO_PREFERENCIA = "ArquivoPreferencia";
     private ListView resultsListView;
     private int tamanholista = 0;
-=======
     //public String ARQUIVO_PREFERENCIA = "ArquivoPreferencia";
->>>>>>> 7f4c1f3479abf310fb5da298f5624968dd5dd661
+
 
 
     @Override
@@ -56,11 +54,11 @@ public class Results extends AppCompatActivity {
         cidade = extra.getString("cidade");
         estado = extra.getString("estado");
 
-<<<<<<< HEAD
+
         nome = new ArrayList();
         idnome = new ArrayList();
         end = new ArrayList();
-=======
+
         ListView resultsListView = (ListView) findViewById(R.id.results_listview);
 
         HashMap<Object, Object> nameAddresses = new HashMap<>();
@@ -82,7 +80,6 @@ public class Results extends AppCompatActivity {
         }
 
         resultsListView.setAdapter(adapter);
->>>>>>> 7f4c1f3479abf310fb5da298f5624968dd5dd661
 
             recuperarDados();
 
