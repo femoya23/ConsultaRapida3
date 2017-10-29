@@ -25,9 +25,7 @@ public FirebaseAuth firebaseAuth;
         FirebaseApp.initializeApp(this);
 
         new Handler().postDelayed(new Runnable() {
-            /*
-             * Exibindo splash com um timer.
-             */
+            //Exibindo splash com um timer.
             @Override
             public void run() {
                 // Esse método será executado sempre que o timer acabar
@@ -38,7 +36,7 @@ public FirebaseAuth firebaseAuth;
                 // Fecha esta activity
                 finish();
             }
-        }, 3000);
+        }, 2000);
 
     }
 

@@ -2,24 +2,28 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <ImageView
+        android:id="@+id/imagem"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:id="@+id/imagem"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="10dp"
         android:scaleType="fitXY"
-        android:src="@drawable/logo"
-        android:layout_margin="5dp" />
+        android:src="@drawable/logo" />
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="right">
+
         <TextView
+            android:id="@+id/nome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:text="Nome do Consultorio"
-            android:id="@+id/nome"
-            android:layout_marginTop="10dp"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.SearchResult.Title" />
         <TextView
             android:layout_width="wrap_content"
@@ -27,17 +31,20 @@
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
             android:text="Endereço"
             android:id="@+id/endereco" />
+
         <TextView
+            android:id="@+id/cidadeestado"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-            android:text="Endereço"
-            android:id="@+id/cidadeestado" />
+            android:text="Cidade"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
+
         <TextView
+            android:id="@+id/dataHora"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-            android:text="Endereço"
-            android:id="@+id/dataHora" />
+            android:layout_marginBottom="8dp"
+            android:text="Data e hora"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
     </LinearLayout>
 </LinearLayout>
