@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/textoNome"
+        android:id="@+id/text1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/colorPrimary"
@@ -12,7 +12,7 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/textoEndereco"
+        android:id="@+id/text2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/cardview_dark_background"

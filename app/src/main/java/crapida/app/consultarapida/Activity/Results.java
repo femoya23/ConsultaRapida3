@@ -7,18 +7,19 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
 
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 import crapida.app.consultarapida.Model.ConfiguracaoFirebase;
 import crapida.app.consultarapida.Model.ConsultaMedicos;
@@ -37,7 +38,6 @@ public class Results extends AppCompatActivity {
     public String ARQUIVO_PREFERENCIA = "ArquivoPreferencia";
     private ListView resultsListView;
     private int tamanholista = 0;
-    //public String ARQUIVO_PREFERENCIA = "ArquivoPreferencia";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,7 +120,7 @@ public class Results extends AppCompatActivity {
         List<HashMap<String, String>> listItems = new ArrayList<>();
         SimpleAdapter adapter = new SimpleAdapter(this, listItems, R.layout.list_item,
                 new String[]{"First Line", "Second Line"},
-                new int[]{R.id.textoNome, R.id.textoEndereco});
+                new int[]{R.id.text1, R.id.text2});
         Iterator it = nameAddresses.entrySet().iterator();
         while (it.hasNext())
         {
