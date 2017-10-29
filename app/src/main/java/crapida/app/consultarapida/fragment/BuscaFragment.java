@@ -286,7 +286,7 @@ public class BuscaFragment extends Fragment {
                         intent.putExtra("especialidade", especialidadeselecionado);
                         intent.putExtra("estado", estadoselecionado);
                         intent.putExtra("cidade", cidadeselecionado);
-                        startActivity( intent);
+                        startActivity(intent);
 
               /*          }
                     @Override

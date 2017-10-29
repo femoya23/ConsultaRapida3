@@ -170,23 +170,42 @@ public class ConsultasView extends Fragment {
                 data.add(dataAjustada);
                 especialidade.add(consultaAgendada.getEspecialidade());
                     ConsultasExibicao e;
+
                   if(consultaAgendada.getStatus().equals("2")) {
                         e = new ConsultasExibicao(consultaAgendada.getNome(), consultaAgendada.getEndcomp(), consultaAgendada.getCidade(), dataHora, R.mipmap.ic_agendado);
                    }else{
                        e = new ConsultasExibicao(consultaAgendada.getNome(), consultaAgendada.getEndcomp(), consultaAgendada.getCidade(), dataHora, R.mipmap.ic_confirmada);
+
+                    if(consultaAgendada.getStatus().equals("2")) {
+                        e = new ConsultasExibicao(consultaAgendada.getNome(),
+                                consultaAgendada.getEndcomp(),
+                                consultaAgendada.getCidade(),
+                                dataHora, R.mipmap.ic_agendado);
+                    }else{
+                        e = new ConsultasExibicao(consultaAgendada.getNome(),
+                                consultaAgendada.getEndcomp(),
+                                consultaAgendada.getCidade(),
+                                dataHora, R.mipmap.ic_confirmada);
+
                     }
                 consultas.add(e);
                }
 
                 criarAdapter();
                 }
+
+
+
+        }
+
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
 
         });
 
-    }
+
+}
     public void criarAdapter(){
         ArrayAdapter adapter = new ConsultaAdapter(getActivity(), consultas);
         lista.setAdapter(adapter);
@@ -225,6 +244,7 @@ public class ConsultasView extends Fragment {
         }
         return data;
     }
+
     public String transformarHora(String hora){
         try {
             hora = hora.substring(0, 2) + hora.substring(3, 5);

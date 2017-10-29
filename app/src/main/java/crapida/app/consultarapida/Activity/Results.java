@@ -32,11 +32,15 @@ public class Results extends AppCompatActivity {
     private String cidade;
     private ArrayList nome;
     private ArrayList idnome;
+<<<<<<< HEAD
     private ArrayList end;
     private DatabaseReference firebase;
     public String ARQUIVO_PREFERENCIA = "ArquivoPreferencia";
     private ListView resultsListView;
     private int tamanholista = 0;
+=======
+    //public String ARQUIVO_PREFERENCIA = "ArquivoPreferencia";
+>>>>>>> 7f4c1f3479abf310fb5da298f5624968dd5dd661
 
 
     @Override
@@ -52,9 +56,33 @@ public class Results extends AppCompatActivity {
         cidade = extra.getString("cidade");
         estado = extra.getString("estado");
 
+<<<<<<< HEAD
         nome = new ArrayList();
         idnome = new ArrayList();
         end = new ArrayList();
+=======
+        ListView resultsListView = (ListView) findViewById(R.id.results_listview);
+
+        HashMap<Object, Object> nameAddresses = new HashMap<>();
+        for (int i=0;i<end.size(); i++){
+            nameAddresses.put(nome.get(i), end.get(i));
+        }
+        List<HashMap<String, String>> listItems = new ArrayList<>();
+        SimpleAdapter adapter = new SimpleAdapter(this, listItems, R.layout.list_item,
+                new String[]{"First Line", "Second Line"},
+                new int[]{R.id.textoNome, R.id.textoEndereco});
+        Iterator it = nameAddresses.entrySet().iterator();
+        while (it.hasNext())
+        {
+            HashMap<String, String> resultsMap = new HashMap<>();
+            Map.Entry pair = (Map.Entry)it.next();
+            resultsMap.put("First Line", pair.getKey().toString());
+            resultsMap.put("Second Line", pair.getValue().toString());
+            listItems.add(resultsMap);
+        }
+
+        resultsListView.setAdapter(adapter);
+>>>>>>> 7f4c1f3479abf310fb5da298f5624968dd5dd661
 
             recuperarDados();
 

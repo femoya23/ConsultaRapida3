@@ -196,6 +196,7 @@ public class MainActivity extends AppCompatActivity {
                 if (task.isSuccessful()){
                     Intent i = new Intent(MainActivity.this, TelaPrin.class);
                     startActivity(i);
+                    finish();
                 }else{
                     alerta("Erro de autenticação com Firebase.");
                 }
