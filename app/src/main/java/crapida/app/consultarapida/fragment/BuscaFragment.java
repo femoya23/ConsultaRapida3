@@ -32,7 +32,6 @@ import crapida.app.consultarapida.Activity.Results;
  */
 public class BuscaFragment extends Fragment {
 
-
     private Spinner spespecialidade;
     private Spinner spestado;
     private Spinner spcidade;
@@ -53,7 +52,6 @@ public class BuscaFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_busca, container, false);
-
 
         //Instancia o Array List
         especialidade = new ArrayList<>();
@@ -200,24 +198,16 @@ public class BuscaFragment extends Fragment {
                     public void onCancelled(DatabaseError databaseError) {
                     }
                 });
-
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
             }
-
-
         });
-
         spestado.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-
                 String estadoselecionado = (String) spestado.getSelectedItem();
-
 
                 firebase = ConfiguracaoFirebase.getFirebase()
                         .child("filtros")
@@ -238,76 +228,27 @@ public class BuscaFragment extends Fragment {
                     public void onCancelled(DatabaseError databaseError) {
                     }
                 });
-
-
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
             }
         });
-
-
         botaopesquisar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 final String especialidadeselecionado = (String) spespecialidade.getSelectedItem();
                 final String estadoselecionado = (String) spestado.getSelectedItem();
                 final String cidadeselecionado = (String) spcidade.getSelectedItem();
-
-                /*firebase = ConfiguracaoFirebase.getFirebase()
-                        .child("medicos")
-                        .child(especialidadeselecionado)
-                        .child(estadoselecionado)
-                        .child(cidadeselecionado);
-
-
-                firebase.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        //Limpar lista
-                        nome.clear();
-                        end.clear();
-                        idnome.clear();
-                        //Listar contatos
-                        for (DataSnapshot dados: dataSnapshot.getChildren() ){
-                            ConsultaMedicos consultaMedicos = dados.getValue( ConsultaMedicos.class );
-                            nome.add(consultaMedicos.getNome());
-                            end.add(consultaMedicos.getEnd());
-                            idnome.add(consultaMedicos.getIdNome());
-                        }*/
-
-                        Intent intent = new Intent(getActivity(), Results.class);
-                        intent.putExtra("nome", nome);
-                        intent.putExtra("end", end);
-                        intent.putExtra("idnome", idnome);
-                        intent.putExtra("especialidade", especialidadeselecionado);
-                        intent.putExtra("estado", estadoselecionado);
-                        intent.putExtra("cidade", cidadeselecionado);
-<<<<<<< HEAD
-                        startActivity(intent);
-
-=======
-                        startActivity( intent);
-                        getActivity().finish();
->>>>>>> parent of 69cf71f... force closed da substring resolvido
-              /*          }
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                    }
+                Intent intent = new Intent(getActivity(), Results.class);
+                intent.putExtra("nome", nome);
+                intent.putExtra("end", end);
+                intent.putExtra("idnome", idnome);
+                intent.putExtra("especialidade", especialidadeselecionado);
+                intent.putExtra("estado", estadoselecionado);
+                intent.putExtra("cidade", cidadeselecionado);
+                startActivity(intent);
                 }
-
-
-
-                );*/
-
-
-            }
-        });
-
+            });
         return view;
-
     }
 }

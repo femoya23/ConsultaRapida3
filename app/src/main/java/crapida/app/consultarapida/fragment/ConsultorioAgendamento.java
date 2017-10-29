@@ -1,6 +1,5 @@
 package crapida.app.consultarapida.fragment;
 
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -34,11 +33,11 @@ import crapida.app.consultarapida.Activity.perfil;
 import crapida.app.consultarapida.Model.ConfiguracaoFirebase;
 import crapida.app.consultarapida.Model.ConsultaConsultorio;
 import crapida.app.consultarapida.Model.DadosPerfil;
+import crapida.app.consultarapida.Model.GravaAgendamento;
 import crapida.app.consultarapida.Model.ListadeDatas;
 import crapida.app.consultarapida.Model.ListadeHoras;
 import crapida.app.consultarapida.Model.Preferencias;
 import crapida.app.consultarapida.R;
-
 
 /**
  * A simple {@link Fragment} subclass.
@@ -294,17 +293,18 @@ public void MarcadordeConsultas(String data, String hora){
             .child(currentFirebaseUser.getUid())
             .child("Consultas")
             .child(idconsulta);
-    firebase.child("especialidade").setValue(especialidadeSelect);
-    firebase.child("idnome").setValue(idNomeSelect);
-    firebase.child("Data").setValue(data);
-    firebase.child("Hora").setValue(hora);
-    firebase.child("Estado").setValue(estadoSelect);
-    firebase.child("Cidade").setValue(cidadeSelect);
-    firebase.child("Status").setValue("2");
-    firebase.child("endcomp").setValue(endcomp);
-    firebase.child("Nome").setValue(consultaConsultorio.getNome());
-
-}
+    GravaAgendamento gravaAgendamento = new GravaAgendamento();
+    gravaAgendamento.setEspecialidade(especialidadeSelect);
+    gravaAgendamento.setIdnome(idNomeSelect);
+    gravaAgendamento.setData(data);
+    gravaAgendamento.setHora(hora);
+    gravaAgendamento.setEstado(estadoSelect);
+    gravaAgendamento.setCidade(cidadeSelect);
+    gravaAgendamento.setStatus("2");
+    gravaAgendamento.setEndcomp(endcomp);
+    gravaAgendamento.setNome(consultaConsultorio.getNome());
+    firebase.setValue(gravaAgendamento);
+    }
 public void PreencherEndereco(){
 
     firebase = ConfiguracaoFirebase.getFirebase()

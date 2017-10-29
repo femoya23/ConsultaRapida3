@@ -39,52 +39,26 @@ public class Results extends AppCompatActivity {
     private int tamanholista = 0;
     //public String ARQUIVO_PREFERENCIA = "ArquivoPreferencia";
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.results);
         FirebaseApp.initializeApp(this);
-
         //Recupera dados da pesquisa
         Bundle extra = getIntent().getExtras();
         idnome = extra.getStringArrayList("idnome");
         especialidade = extra.getString("especialidade");
         cidade = extra.getString("cidade");
         estado = extra.getString("estado");
-
-
+        //Inicializa o ArrayList
         nome = new ArrayList();
         idnome = new ArrayList();
         end = new ArrayList();
 
-        ListView resultsListView = (ListView) findViewById(R.id.results_listview);
+        recuperarDados();
 
-        HashMap<Object, Object> nameAddresses = new HashMap<>();
-        for (int i=0;i<end.size(); i++){
-            nameAddresses.put(nome.get(i), end.get(i));
-        }
-        List<HashMap<String, String>> listItems = new ArrayList<>();
-        SimpleAdapter adapter = new SimpleAdapter(this, listItems, R.layout.list_item,
-                new String[]{"First Line", "Second Line"},
-                new int[]{R.id.textoNome, R.id.textoEndereco});
-        Iterator it = nameAddresses.entrySet().iterator();
-        while (it.hasNext())
-        {
-            HashMap<String, String> resultsMap = new HashMap<>();
-            Map.Entry pair = (Map.Entry)it.next();
-            resultsMap.put("First Line", pair.getKey().toString());
-            resultsMap.put("Second Line", pair.getValue().toString());
-            listItems.add(resultsMap);
-        }
-
-        resultsListView.setAdapter(adapter);
-
-            recuperarDados();
-
-            //construirListView();
-                resultsListView = (ListView) findViewById(R.id.results_listview);
+        //construirListView();
+        resultsListView = (ListView) findViewById(R.id.results_listview);
         //Evento ao clicar no item da lista
         resultsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -138,7 +112,6 @@ public class Results extends AppCompatActivity {
                     }
         );
     }
-
     public void construirListView(){
         LinkedHashMap nameAddresses = new LinkedHashMap();
         for (int i=0;i<tamanholista; i++){
@@ -147,7 +120,7 @@ public class Results extends AppCompatActivity {
         List<HashMap<String, String>> listItems = new ArrayList<>();
         SimpleAdapter adapter = new SimpleAdapter(this, listItems, R.layout.list_item,
                 new String[]{"First Line", "Second Line"},
-                new int[]{R.id.text1, R.id.text2});
+                new int[]{R.id.textoNome, R.id.textoEndereco});
         Iterator it = nameAddresses.entrySet().iterator();
         while (it.hasNext())
         {
