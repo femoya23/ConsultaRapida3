@@ -129,7 +129,7 @@ public class ConsultasView extends Fragment {
     }
 
     private void adicionarConsultas() {
-        final int consults = 0;
+        //final int consults = 0;
         FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
         firebase = ConfiguracaoFirebase.getFirebase()
                 .child("usuarios")
@@ -162,9 +162,15 @@ public class ConsultasView extends Fragment {
                 especialidade.add(consultaAgendada.getEspecialidade());
                     ConsultasExibicao e;
                     if(consultaAgendada.getStatus().equals("2")) {
-                        e = new ConsultasExibicao(consultaAgendada.getNome(), consultaAgendada.getEndcomp(), consultaAgendada.getCidade(), dataHora, R.mipmap.ic_agendado);
+                        e = new ConsultasExibicao(consultaAgendada.getNome(),
+                                consultaAgendada.getEndcomp(),
+                                consultaAgendada.getCidade(),
+                                dataHora, R.mipmap.ic_agendado);
                     }else{
-                        e = new ConsultasExibicao(consultaAgendada.getNome(), consultaAgendada.getEndcomp(), consultaAgendada.getCidade(), dataHora, R.mipmap.ic_confirmada);
+                        e = new ConsultasExibicao(consultaAgendada.getNome(),
+                                consultaAgendada.getEndcomp(),
+                                consultaAgendada.getCidade(),
+                                dataHora, R.mipmap.ic_confirmada);
                     }
                 consultas.add(e);
                }
@@ -212,6 +218,7 @@ public class ConsultasView extends Fragment {
         data = "D" + data.substring(6,10) + data.substring(3,5) + data.substring(0,2);
         return data;
     }
+
     public String transformarHora(String hora){
         hora = hora.substring(0,2) + hora.substring(3,5);
         return hora;

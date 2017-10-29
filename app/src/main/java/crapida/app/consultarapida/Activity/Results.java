@@ -25,7 +25,7 @@ public class Results extends AppCompatActivity {
     private String cidade;
     private ArrayList nome;
     private ArrayList idnome;
-    public String ARQUIVO_PREFERENCIA = "ArquivoPreferencia";
+    //public String ARQUIVO_PREFERENCIA = "ArquivoPreferencia";
 
 
     @Override
@@ -51,7 +51,7 @@ public class Results extends AppCompatActivity {
         List<HashMap<String, String>> listItems = new ArrayList<>();
         SimpleAdapter adapter = new SimpleAdapter(this, listItems, R.layout.list_item,
                 new String[]{"First Line", "Second Line"},
-                new int[]{R.id.text1, R.id.text2});
+                new int[]{R.id.textoNome, R.id.textoEndereco});
         Iterator it = nameAddresses.entrySet().iterator();
         while (it.hasNext())
         {
