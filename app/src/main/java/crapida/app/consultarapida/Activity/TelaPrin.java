@@ -7,7 +7,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -27,13 +26,11 @@ public class TelaPrin extends AppCompatActivity {
     private ViewPager viewPager;
     private Toolbar toolbar;
     private FirebaseAuth usuarioAutenticacao;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tela_prin);
-        Log.i("CiclodeVida","NASCI");
+
         FirebaseApp.initializeApp(this);
         usuarioAutenticacao = ConfiguracaoFirebase.getFirebaseAutenticacao();
         viewPager = (ViewPager) findViewById(R.id.vp_pagina);

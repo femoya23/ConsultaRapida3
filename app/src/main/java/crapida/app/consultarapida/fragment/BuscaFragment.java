@@ -286,8 +286,13 @@ public class BuscaFragment extends Fragment {
                         intent.putExtra("especialidade", especialidadeselecionado);
                         intent.putExtra("estado", estadoselecionado);
                         intent.putExtra("cidade", cidadeselecionado);
+<<<<<<< HEAD
                         startActivity(intent);
 
+=======
+                        startActivity( intent);
+                        getActivity().finish();
+>>>>>>> parent of 69cf71f... force closed da substring resolvido
               /*          }
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
@@ -297,8 +302,12 @@ public class BuscaFragment extends Fragment {
 
 
                 );*/
+
+
             }
         });
+
         return view;
+
     }
-    }
+}
