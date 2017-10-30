@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
-import com.facebook.AccessToken;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -36,7 +35,7 @@ public FirebaseAuth firebaseAuth;
                 // Fecha esta activity
                 finish();
             }
-        }, 1500);
+        }, 1700);
 
     }
 
