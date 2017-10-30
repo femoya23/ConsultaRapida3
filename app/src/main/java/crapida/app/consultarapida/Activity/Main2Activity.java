@@ -36,7 +36,7 @@ public FirebaseAuth firebaseAuth;
                 // Fecha esta activity
                 finish();
             }
-        }, 2000);
+        }, 1500);
 
     }
 
