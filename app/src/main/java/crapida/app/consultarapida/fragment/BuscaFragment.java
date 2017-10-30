@@ -3,29 +3,30 @@ package crapida.app.consultarapida.fragment;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ValueEventListener;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
+
+import crapida.app.consultarapida.Activity.Results;
 import crapida.app.consultarapida.Model.Cidade;
 import crapida.app.consultarapida.Model.ConfiguracaoFirebase;
-import crapida.app.consultarapida.Model.ConsultaMedicos;
 import crapida.app.consultarapida.Model.Espec;
 import crapida.app.consultarapida.Model.Estado;
 import crapida.app.consultarapida.Model.Preferencias;
 import crapida.app.consultarapida.R;
-import crapida.app.consultarapida.Activity.Results;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -153,8 +154,6 @@ public class BuscaFragment extends Fragment {
             }
         };
         spcidade.setAdapter(adaptercidade);
-
-
 
         //recuperar especialidades do firebase especialidade
         Preferencias preferencias = new Preferencias(getActivity());
