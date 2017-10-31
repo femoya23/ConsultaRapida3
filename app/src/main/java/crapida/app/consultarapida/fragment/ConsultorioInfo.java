@@ -38,12 +38,8 @@ public class ConsultorioInfo extends Fragment{
     public String bdExperiencia;
     public String bdNome;
     public String bdNum;
-    public String bdidNome;
-    public TextView listaconvenio;
-    private StorageReference mStorageRef;
-   // private TextView nomeview;
-    private TextView enderecoview;
-    private TextView experienciaview;
+
+
 
     @Override
 
