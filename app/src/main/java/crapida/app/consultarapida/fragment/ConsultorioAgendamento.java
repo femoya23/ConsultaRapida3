@@ -238,7 +238,7 @@ public class ConsultorioAgendamento extends Fragment {
                         MarcadordeConsultas(dataselecionada, horaselect);
                         Intent intent = new Intent(getActivity(), TelaPrin.class);
                         startActivity( intent);
-                        killActivity();
+                        //killActivity();
                     }
                 });
 

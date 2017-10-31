@@ -32,6 +32,11 @@ public class Consultorio extends AppCompatActivity {
     public String cidade;
     public String idnome;
 
+protected void onPause() {
+    super.onPause();
+    finish();
+}
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

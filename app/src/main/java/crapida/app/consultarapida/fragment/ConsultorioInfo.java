@@ -8,10 +8,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 import crapida.app.consultarapida.Model.ConfiguracaoFirebase;
-import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -43,6 +41,9 @@ public class ConsultorioInfo extends Fragment{
     public String bdidNome;
     public TextView listaconvenio;
     private StorageReference mStorageRef;
+   // private TextView nomeview;
+    private TextView enderecoview;
+    private TextView experienciaview;
 
     @Override
 
@@ -51,7 +52,11 @@ public class ConsultorioInfo extends Fragment{
 
         View view = inflater.inflate(R.layout.fragment_consultorio_info, container, false);
 
+        final TextView nomeview = (TextView)view.findViewById(R.id.nomeConsultorioInfoId);
+        final TextView enderecoview = (TextView)view.findViewById(R.id.enderecoConsultorioInfoId);
+        final TextView experienciaview = (TextView)view.findViewById(R.id.experienciaConsultorioInfoId);
         //listaconvenio = (TextView) view.findViewById(R.id.conveniosId);
+
 
         //RECUPERA VALORES DO SHAREDPREFERENCES
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("pref",0);
@@ -81,7 +86,12 @@ public class ConsultorioInfo extends Fragment{
                 if(consultaConsultorio.getNum()!=null)
                 bdNum = consultaConsultorio.getNum().toString();
 
-                preencherDados(bdBairro, bdEnd, bdExperiencia, bdNome,bdNum);
+                String endereco = preencherDados(bdBairro, bdEnd, bdNum);
+                nomeview.setText(bdNome);
+                enderecoview.setText(endereco);
+                experienciaview.setText(bdExperiencia);
+
+
 
 
             }
@@ -90,14 +100,11 @@ public class ConsultorioInfo extends Fragment{
             }
             });
 
-        return inflater.inflate(R.layout.fragment_consultorio_info, container, false);
+        return view;
             }
 
-    private void preencherDados (String bairro, String end, String experiencia, String nome, String num) {
 
-        TextView nomeview = (TextView) getActivity().findViewById(R.id.nomeConsultorioInfoId);
-        TextView enderecoview = (TextView) getActivity().findViewById(R.id.enderecoConsultorioInfoId);
-        TextView experienciaview = (TextView) getActivity().findViewById(R.id.experienciaConsultorioInfoId);
+        private String preencherDados (String bairro, String end, String num) {
         if(bairro==null)
             bairro="";
         else
@@ -106,24 +113,8 @@ public class ConsultorioInfo extends Fragment{
             num="";
         else
             num=", " + num;
-
         String enderecoCompleto = end + num + bairro;
-        try {
-            nomeview.setText(nome);
-        } finally {
-
-        }
-        try {
-            enderecoview.setText(enderecoCompleto);
-        }finally {
-
-        }
-        try {
-            experienciaview.setText(experiencia);
-        }finally {
-        }
-
-
+        return enderecoCompleto;
     }
 
 
