@@ -28,7 +28,7 @@ import crapida.app.consultarapida.R;
 public class Results extends AppCompatActivity {
 
     private String especialidade;
-    private String estado;
+    //private String estado;
     private String cidade;
     private ArrayList nome;
     private ArrayList idnome;
@@ -49,7 +49,7 @@ public class Results extends AppCompatActivity {
         idnome = extra.getStringArrayList("idnome");
         especialidade = extra.getString("especialidade");
         cidade = extra.getString("cidade");
-        estado = extra.getString("estado");
+        //estado = extra.getString("estado");
         //Inicializa o ArrayList
         nome = new ArrayList();
         idnome = new ArrayList();
@@ -69,7 +69,7 @@ public class Results extends AppCompatActivity {
                 intent.putExtra("nome", nomeSelect);
                 intent.putExtra("idnome", idnomeSelect);
                 intent.putExtra("especialidade", especialidade);
-                intent.putExtra("estado", estado);
+                //intent.putExtra("estado", estado);
                 intent.putExtra("cidade", cidade);
                 startActivity(intent);
                 killActivity();
@@ -85,7 +85,7 @@ public class Results extends AppCompatActivity {
         firebase = ConfiguracaoFirebase.getFirebase()
                 .child("medicos")
                 .child(especialidade)
-                .child(estado)
+                .child("São Paulo")
                 .child(cidade);
         firebase.addValueEventListener(new ValueEventListener() {
             @Override

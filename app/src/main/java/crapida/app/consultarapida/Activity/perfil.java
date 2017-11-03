@@ -49,18 +49,18 @@ public class perfil extends Activity {
     private Spinner spConvenio;
     private Spinner spPlano;
     private Spinner spSexo;
-    private Spinner spEstado;
+    //private Spinner spEstado;
     private Spinner spCidade;
     private ArrayList<String> convenio;
     private ArrayList<String> plano;
     //private ArrayList<String> sexo;
-    private ArrayList estado;
+    //private ArrayList estado;
     private ArrayList cidade;
     private String[] sexo;
     private ArrayAdapter adapterConvenio;
     private ArrayAdapter adapterPlano;
     private ArrayAdapter adapterSexo;
-    private ArrayAdapter adapterEstado;
+    //private ArrayAdapter adapterEstado;
     private ArrayAdapter adapterCidade;
     private DatabaseReference firebase;
     private Button botaoLogoff;
@@ -96,13 +96,13 @@ public class perfil extends Activity {
         convenio = new ArrayList<>();
         plano = new ArrayList<>();
         sexo = new String[] {"Escolha seu sexo", "Feminino", "Masculino"};
-        estado = new ArrayList<>();
+        //estado = new ArrayList<>();
         cidade = new ArrayList<>();
         //Referencia objeto
         spConvenio = (Spinner) findViewById(R.id.convenioId);
         spPlano = (Spinner) findViewById(R.id.planoId);
         spSexo = (Spinner) findViewById(R.id.sexoId);
-        spEstado = (Spinner) findViewById(R.id.estadoId);
+        //spEstado = (Spinner) findViewById(R.id.estadoId);
         spCidade = (Spinner) findViewById(R.id.cidadeId);
         nome = (EditText) findViewById(R.id.nomeId);
         email = (EditText) findViewById(R.id.emailId);
@@ -124,8 +124,8 @@ public class perfil extends Activity {
         spPlano.setAdapter(adapterPlano);
         adapterSexo = new ArrayAdapter (perfil.this, R.layout.spinner_busca,sexo);
         spSexo.setAdapter(adapterSexo);
-        adapterEstado = new ArrayAdapter(perfil.this, R.layout.spinner_busca,estado);
-        spEstado.setAdapter(adapterEstado);
+        //adapterEstado = new ArrayAdapter(perfil.this, R.layout.spinner_busca,estado);
+        //spEstado.setAdapter(adapterEstado);
         adapterCidade = new ArrayAdapter(perfil.this, R.layout.spinner_busca, cidade);
         spCidade.setAdapter(adapterCidade);
 
@@ -187,35 +187,16 @@ public class perfil extends Activity {
         });
 
         //recuperar estado do firebase
-        firebase = ConfiguracaoFirebase.getFirebase()
-                .child("filtros")
-                .child("estado");
+        //estado.add("São Paulo");
 
-        firebase.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                estado.add("Escolha um estado");
-                for(DataSnapshot dados: dataSnapshot.getChildren() ){
-                    Estado est = dados.getValue(Estado.class);
-                    estado.add(est.getNome());
-                }
-                adapterEstado.notifyDataSetChanged();
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
 
-        spEstado.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                                               @Override
-                                               public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                                                   String estadoSelecionado = (String) spEstado.getSelectedItem();
+                                                   //String estadoSelecionado = (String) spEstado.getSelectedItem();
 
                                                    firebase = ConfiguracaoFirebase.getFirebase()
                                                            .child("filtros")
                                                            .child("cidade")
-                                                           .child(estadoSelecionado);
+                                                           .child("São Paulo");
 
                                                    firebase.addValueEventListener(new ValueEventListener() {
                                                        @Override
@@ -234,12 +215,7 @@ public class perfil extends Activity {
                                                        public void onCancelled(DatabaseError databaseError) {
                                                        }
                                                    });
-                                               }
-                                               @Override
-                                               public void onNothingSelected(AdapterView<?> adapterView) {
-                                               }
-                                           }
-        );
+
 
         botaoSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -271,10 +247,10 @@ public class perfil extends Activity {
             alerta("Necessário preencher o campo Sexo");
             return false;
         }
-        if(spEstado.getSelectedItem().equals("Escolha um estado")){
+        /*if(spEstado.getSelectedItem().equals("Escolha um estado")){
             alerta("Necessário preencher o campo Estado");
             return false;
-        }
+        }*/
         if(spCidade.getSelectedItem().equals("Escolha uma cidade")){
             alerta("Necessário preencher o campo Cidade");
             return false;
@@ -303,7 +279,7 @@ public class perfil extends Activity {
             firebase.child("nome").setValue(nome.getText().toString());
             firebase.child("dataNasc").setValue(dataNascimento.getText().toString());
             firebase.child("sexo").setValue(spSexo.getSelectedItem());
-            firebase.child("estado").setValue(spEstado.getSelectedItem());
+            firebase.child("estado").setValue("São Paulo");
             firebase.child("cidade").setValue(spCidade.getSelectedItem());
             firebase.child("celular").setValue(celular.getText().toString());
             firebase.child("email").setValue(email.getText().toString());
@@ -370,7 +346,7 @@ public class perfil extends Activity {
                     }
                 }
                 //setar no spinner Estado o valor do Firebase
-                if(dadosPerfil.getEstado()!= null) {
+                /*if(dadosPerfil.getEstado()!= null) {
                     int posicaoEstado = 0;
                     while (posicaoEstado < estado.size()){
                         if (estado.get(posicaoEstado).equals(dadosPerfil.getEstado())){
@@ -381,7 +357,7 @@ public class perfil extends Activity {
                             posicaoEstado++;
                         }
                     }
-                }
+                }*/
 
                 //setar no spinner Convenio o valor do Firebase
                 if(dadosPerfil.getConvenio()!= null) {

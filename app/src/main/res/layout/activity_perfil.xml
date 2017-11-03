@@ -35,6 +35,7 @@
         android:hint="e-mail"
         android:inputType="textPersonName"
         android:paddingStart="6dp"
+        android:paddingLeft="6dp"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -52,23 +53,14 @@
         android:hint="Celular"
         android:inputType="textPersonName"
         android:paddingStart="6dp"
+        android:paddingLeft="6dp"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cidadeId" />
 
 
-    <Spinner
-        android:id="@+id/estadoId"
-        android:layout_width="0dp"
-        android:layout_height="30dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/cidadeId"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+
 
     <Spinner
         android:id="@+id/cidadeId"
@@ -94,6 +86,7 @@
         android:hint="Data de Nascimento"
         android:inputType="textPersonName"
         android:paddingStart="6dp"
+        android:paddingLeft="6dp"
         app:layout_constraintBottom_toTopOf="@+id/sexoId"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -111,6 +104,7 @@
         android:hint="Nome"
         android:inputType="textPersonName"
         android:paddingStart="6dp"
+        android:paddingLeft="6dp"
         app:layout_constraintBottom_toTopOf="@+id/datanascId"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -135,7 +129,7 @@
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/estadoId"
+        app:layout_constraintBottom_toTopOf="@+id/cidadeId"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />

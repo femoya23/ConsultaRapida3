@@ -29,7 +29,7 @@ public class ConsultorioInfo extends Fragment{
 
 
     public String especialidadeSelect;
-    public String estadoSelect;
+    //public String estadoSelect;
     public String cidadeSelect;
     public String idNomeSelect;
     private DatabaseReference firebase;
@@ -57,7 +57,7 @@ public class ConsultorioInfo extends Fragment{
         //RECUPERA VALORES DO SHAREDPREFERENCES
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("pref",0);
         idNomeSelect = sharedPreferences.getString("idnome","idnome");
-        estadoSelect = sharedPreferences.getString("estado","estado");
+        //estadoSelect = sharedPreferences.getString("estado","estado");
         especialidadeSelect = sharedPreferences.getString("especialidade","especialidade");
         cidadeSelect = sharedPreferences.getString("cidade","cidade");
 
@@ -65,7 +65,7 @@ public class ConsultorioInfo extends Fragment{
         firebase = ConfiguracaoFirebase.getFirebase()
                 .child("medicos")
                 .child(especialidadeSelect)
-                .child(estadoSelect)
+                .child("São Paulo")
                 .child(cidadeSelect)
                 .child(idNomeSelect);
 

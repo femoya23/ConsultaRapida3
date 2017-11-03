@@ -45,7 +45,7 @@ import crapida.app.consultarapida.R;
 public class ConsultorioAgendamento extends Fragment {
 
     public String especialidadeSelect;
-    public String estadoSelect;
+    //public String estadoSelect;
     public String cidadeSelect;
     public String idNomeSelect;
     private Spinner spDatas;
@@ -71,7 +71,7 @@ public class ConsultorioAgendamento extends Fragment {
         //Recupera Dados da Seleção
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("pref",0);
         idNomeSelect = sharedPreferences.getString("idnome","idnome");
-        estadoSelect = sharedPreferences.getString("estado","estado");
+        //estadoSelect = sharedPreferences.getString("estado","estado");
         especialidadeSelect = sharedPreferences.getString("especialidade","especialidade");
         cidadeSelect = sharedPreferences.getString("cidade","cidade");
 
@@ -153,7 +153,7 @@ public class ConsultorioAgendamento extends Fragment {
         firebase = ConfiguracaoFirebase.getFirebase()
                 .child("medicos")
                 .child(especialidadeSelect)
-                .child(estadoSelect)
+                .child("São Paulo")
                 .child(cidadeSelect)
                 .child(idNomeSelect)
                 .child("Agenda");
@@ -183,7 +183,7 @@ public class ConsultorioAgendamento extends Fragment {
                 firebase = ConfiguracaoFirebase.getFirebase()
                         .child("medicos")
                         .child(especialidadeSelect)
-                        .child(estadoSelect)
+                        .child("São Paulo")
                         .child(cidadeSelect)
                         .child(idNomeSelect)
                         .child("Agenda")
@@ -278,7 +278,7 @@ public void MarcadordeConsultas(String data, String hora){
     firebase = ConfiguracaoFirebase.getFirebase()
             .child("medicos")
             .child(especialidadeSelect)
-            .child(estadoSelect)
+            .child("São Paulo")
             .child(cidadeSelect)
             .child(idNomeSelect)
             .child("Agenda")
@@ -298,7 +298,7 @@ public void MarcadordeConsultas(String data, String hora){
     gravaAgendamento.setIdnome(idNomeSelect);
     gravaAgendamento.setData(data);
     gravaAgendamento.setHora(hora);
-    gravaAgendamento.setEstado(estadoSelect);
+    gravaAgendamento.setEstado("São Paulo");
     gravaAgendamento.setCidade(cidadeSelect);
     gravaAgendamento.setStatus("2");
     gravaAgendamento.setEndcomp(endcomp);
@@ -310,7 +310,7 @@ public void PreencherEndereco(){
     firebase = ConfiguracaoFirebase.getFirebase()
             .child("medicos")
             .child(especialidadeSelect)
-            .child(estadoSelect)
+            .child("São Paulo")
             .child(cidadeSelect)
             .child(idNomeSelect);
     firebase.addValueEventListener(new ValueEventListener() {

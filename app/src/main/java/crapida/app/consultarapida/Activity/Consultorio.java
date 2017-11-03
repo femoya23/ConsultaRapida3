@@ -28,7 +28,7 @@ public class Consultorio extends AppCompatActivity {
     private static final String ARQUIVO_PREFERENCIA = "ArquivoPreferencia";
     public String nome;
     public String especialidade;
-    public String estado;
+    //public String estado;
     public String cidade;
     public String idnome;
 
@@ -53,7 +53,7 @@ protected void onPause() {
         nome = extra.getString("nome");
         idnome = extra.getString("idnome");
         especialidade = extra.getString("especialidade");
-        estado = extra.getString("estado");
+        //estado = extra.getString("estado");
         cidade = extra.getString("cidade");
 
 
@@ -63,7 +63,7 @@ protected void onPause() {
 
         editor.putString("idnome",idnome);
         editor.putString("especialidade", especialidade);
-        editor.putString("estado",estado);
+        //editor.putString("estado",estado);
         editor.putString("cidade",cidade);
         editor.commit();
 

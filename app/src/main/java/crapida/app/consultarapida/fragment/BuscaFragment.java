@@ -34,13 +34,13 @@ import crapida.app.consultarapida.R;
 public class BuscaFragment extends Fragment {
 
     private Spinner spespecialidade;
-    private Spinner spestado;
+    //private Spinner spestado;
     private Spinner spcidade;
     private ArrayAdapter adapterespecialidade;
-    private ArrayAdapter adapterestado;
+    //private ArrayAdapter adapterestado;
     private ArrayAdapter adaptercidade;
     private ArrayList<String> especialidade;
-    private ArrayList<String> estados;
+    //private ArrayList<String> estados;
     private ArrayList<String> cidades;
     private ArrayList<String> nome;
     private ArrayList<String> end;
@@ -56,7 +56,7 @@ public class BuscaFragment extends Fragment {
 
         //Instancia o Array List
         especialidade = new ArrayList<>();
-        estados = new ArrayList<>();
+        //estados = new ArrayList<>();
         cidades = new ArrayList<>();
         nome = new ArrayList<>();
         end = new ArrayList<>();
@@ -64,7 +64,7 @@ public class BuscaFragment extends Fragment {
 
         //Referencia objeto
         spespecialidade = (Spinner) view.findViewById(R.id.spespecialidade);
-        spestado = (Spinner) view.findViewById(R.id.spestado);
+        //spestado = (Spinner) view.findViewById(R.id.spestado);
         spcidade = (Spinner) view.findViewById(R.id.spcidade);
         botaopesquisar = (Button) view.findViewById(R.id.btpesquisar);
 
@@ -97,7 +97,7 @@ public class BuscaFragment extends Fragment {
             }
         };
         spespecialidade.setAdapter(adapterespecialidade);
-
+/*
         adapterestado = new ArrayAdapter (getActivity(), R.layout.spinner_busca,estados){
             public boolean isEnabled(int position){
                 if(position == 0)
@@ -125,7 +125,7 @@ public class BuscaFragment extends Fragment {
                 return view;
             }
         };
-        spestado.setAdapter(adapterestado);
+        spestado.setAdapter(adapterestado);*/
         adaptercidade = new ArrayAdapter (getActivity(), R.layout.spinner_busca,cidades){
             public boolean isEnabled(int position){
                 if(position == 0)
@@ -175,7 +175,7 @@ public class BuscaFragment extends Fragment {
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-
+/*
         spespecialidade.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -201,17 +201,17 @@ public class BuscaFragment extends Fragment {
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
-        });
-        spestado.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        });*/
+        spespecialidade.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                String estadoselecionado = (String) spestado.getSelectedItem();
+                //String estadoselecionado = (String) spestado.getSelectedItem();
 
                 firebase = ConfiguracaoFirebase.getFirebase()
                         .child("filtros")
                         .child("cidade")
-                        .child(estadoselecionado);
+                        .child("São Paulo");
                 firebase.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -236,14 +236,14 @@ public class BuscaFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 final String especialidadeselecionado = (String) spespecialidade.getSelectedItem();
-                final String estadoselecionado = (String) spestado.getSelectedItem();
+                //final String estadoselecionado = (String) spestado.getSelectedItem();
                 final String cidadeselecionado = (String) spcidade.getSelectedItem();
                 Intent intent = new Intent(getActivity(), Results.class);
                 intent.putExtra("nome", nome);
                 intent.putExtra("end", end);
                 intent.putExtra("idnome", idnome);
                 intent.putExtra("especialidade", especialidadeselecionado);
-                intent.putExtra("estado", estadoselecionado);
+                //intent.putExtra("estado", estadoselecionado);
                 intent.putExtra("cidade", cidadeselecionado);
                 startActivity(intent);
                 }
