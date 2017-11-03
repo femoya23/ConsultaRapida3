@@ -89,6 +89,6 @@
 
     <string name="facebook_app_id">353159345133558</string>
     <string name="fb_login_protocol_scheme">fb353159345133558</string>
-    <string name="siteId">consultaapp.com</string>
+    <string name="siteId"><a href="http://consultaapp.com">consultaapp.com</a></string>
 
 </resources>

@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
@@ -55,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
         inicializarBotaoFacebook();
         inicializarCallback();
         clicarBotaoFacebook();
-
 
         //Referencia Id com Variaveis
         email= (EditText) findViewById(R.id.loginId);
@@ -142,6 +143,9 @@ public class MainActivity extends AppCompatActivity {
         parameters.putString("fields", "id,first_name,last_name,gender,location");
         request.setParameters(parameters);
         request.executeAsync();
+
+
+
 
     }//final do método onCreate
 
