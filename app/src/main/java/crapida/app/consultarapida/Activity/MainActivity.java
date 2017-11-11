@@ -200,6 +200,17 @@ public class MainActivity extends AppCompatActivity {
                 if (task.isSuccessful()){
                     Intent i = new Intent(MainActivity.this, TelaPrin.class);
                     startActivity(i);
+
+                    fbuser = FirebaseAuth.getInstance().getCurrentUser() ;
+                    uiduser = fbuser.getUid();
+
+                    firebase = ConfiguracaoFirebase.getFirebase()
+                            .child("usuarios")
+                            .child(uiduser);
+                    FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
+                    firebase.child("nome").setValue(currentFirebaseUser.getDisplayName());
+                    firebase.child("email").setValue(currentFirebaseUser.getEmail());
+
                     finish();
                 }else{
                     alerta("Erro de autenticação com Firebase.");

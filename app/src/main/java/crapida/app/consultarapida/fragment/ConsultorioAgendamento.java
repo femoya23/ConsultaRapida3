@@ -161,7 +161,7 @@ public class ConsultorioAgendamento extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 listDatas.clear();
-                listDatas.add("Escolha uma Data");
+                //listDatas.add("Escolha uma Data");
                 for(DataSnapshot dados: dataSnapshot.getChildren() ){
                     ListadeDatas espec = dados.getValue(ListadeDatas.class);
                     listDatas.add(espec.getDatas().toString());
@@ -197,7 +197,7 @@ public class ConsultorioAgendamento extends Fragment {
                         for(DataSnapshot dados: dataSnapshot.getChildren() ){
                             ListadeHoras listadeHoras = dados.getValue(ListadeHoras.class);
                             if(listadeHoras.getStatus().equals("1"))
-                            listHoras.add(listadeHoras.getHora().toString());
+                                listHoras.add(listadeHoras.getHora().toString());
                         }
                         adapterHoras.notifyDataSetChanged();
                     }
@@ -213,146 +213,152 @@ public class ConsultorioAgendamento extends Fragment {
         botaoagendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(control){
-                horaselect = spHoras.getSelectedItem().toString();
-                horaselect = horaselect.substring(0, 2) + horaselect.substring(3, 5);
+                if(spDatas.getSelectedItem().toString().equals("Escolha uma Data") ||
+                        spHoras.getSelectedItem().toString().equals("Escolha um Horário")) {
+                    Toast.makeText(getActivity(), "Escolha uma data e horário valido", Toast.LENGTH_SHORT).show();
+                }else{
+                    if (control) {
+                        horaselect = spHoras.getSelectedItem().toString();
+                        horaselect = horaselect.substring(0, 2) + horaselect.substring(3, 5);
 
-                //Criar Alert Dialog
-                dialog = new AlertDialog.Builder(getActivity());
+                        //Criar Alert Dialog
+                        dialog = new AlertDialog.Builder(getActivity());
 
-                //Configurar Alert Dialog
-                dialog.setTitle("Confirmação de Consulta");
-                dialog.setMessage("Deseja confirmar sua consulta no " + idNomeSelect + " para o dia " + spDatas.getSelectedItem()
-                        + " as " + spHoras.getSelectedItem() + "?");
+                        //Configurar Alert Dialog
+                        dialog.setTitle("Confirmação de Consulta");
+                        dialog.setMessage("Deseja confirmar sua consulta no " + idNomeSelect + " para o dia " + spDatas.getSelectedItem()
+                                + " as " + spHoras.getSelectedItem() + "?");
 
-                dialog.setNegativeButton("Não", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        Toast.makeText(getActivity(), "Consulta não agendada", Toast.LENGTH_SHORT).show();
+                        dialog.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Toast.makeText(getActivity(), "Consulta não agendada", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                        dialog.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                MarcadordeConsultas(dataselecionada, horaselect);
+                                Intent intent = new Intent(getActivity(), TelaPrin.class);
+                                startActivity(intent);
+                                //killActivity();
+                            }
+                        });
+
+                        dialog.create();
+                        dialog.show();
+                    } else {
+
+                        //Criar Alert Dialog
+                        dialog = new AlertDialog.Builder(getActivity());
+
+                        //Configurar Alert Dialog
+                        dialog.setTitle("Cadastrar Perfil");
+                        dialog.setMessage("Para agendamento de consultas é necessário completar o seu perfil. " +
+                                "Deseja fazer isso agora?");
+
+                        dialog.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                            }
+                        });
+                        dialog.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Intent intent = new Intent(getActivity(), perfil.class);
+                                startActivity(intent);
+                            }
+                        });
+                        dialog.create();
+                        dialog.show();
                     }
-                });
-
-                dialog.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        MarcadordeConsultas(dataselecionada, horaselect);
-                        Intent intent = new Intent(getActivity(), TelaPrin.class);
-                        startActivity( intent);
-                        //killActivity();
-                    }
-                });
-
-                dialog.create();
-                dialog.show();
-            }else{
-
-                    //Criar Alert Dialog
-                    dialog = new AlertDialog.Builder(getActivity());
-
-                    //Configurar Alert Dialog
-                    dialog.setTitle("Cadastrar Perfil");
-                    dialog.setMessage("Para agendamento de consultas é necessário completar o seu perfil. " +
-                            "Deseja fazer isso agora?");
-
-                    dialog.setNegativeButton("Não", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                        }
-                    });
-                    dialog.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            Intent intent = new Intent(getActivity(),perfil.class);
-                            startActivity(intent);
-                        }
-                    });
-                    dialog.create();
-                    dialog.show();
                 }
             }
         });
+
         return view;
     }
-public void MarcadordeConsultas(String data, String hora){
-    FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
-    firebase = ConfiguracaoFirebase.getFirebase()
-            .child("medicos")
-            .child(especialidadeSelect)
-            .child("São Paulo")
-            .child(cidadeSelect)
-            .child(idNomeSelect)
-            .child("Agenda")
-            .child(data)
-            .child("Horarios")
-            .child(hora);
-    firebase.child("Status").setValue("2");
-    firebase.child("Paciente").setValue(currentFirebaseUser.getUid());
-    String idconsulta = data + hora;
-    firebase = ConfiguracaoFirebase.getFirebase()
-            .child("usuarios")
-            .child(currentFirebaseUser.getUid())
-            .child("Consultas")
-            .child(idconsulta);
-    GravaAgendamento gravaAgendamento = new GravaAgendamento();
-    gravaAgendamento.setEspecialidade(especialidadeSelect);
-    gravaAgendamento.setIdnome(idNomeSelect);
-    gravaAgendamento.setData(data);
-    gravaAgendamento.setHora(hora);
-    gravaAgendamento.setEstado("São Paulo");
-    gravaAgendamento.setCidade(cidadeSelect);
-    gravaAgendamento.setStatus("2");
-    gravaAgendamento.setEndcomp(endcomp);
-    gravaAgendamento.setNome(consultaConsultorio.getNome());
-    firebase.setValue(gravaAgendamento);
+    public void MarcadordeConsultas(String data, String hora){
+        FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
+        firebase = ConfiguracaoFirebase.getFirebase()
+                .child("medicos")
+                .child(especialidadeSelect)
+                .child("São Paulo")
+                .child(cidadeSelect)
+                .child(idNomeSelect)
+                .child("Agenda")
+                .child(data)
+                .child("Horarios")
+                .child(hora);
+        firebase.child("Status").setValue("2");
+        firebase.child("Paciente").setValue(currentFirebaseUser.getUid());
+        String idconsulta = data + hora;
+        firebase = ConfiguracaoFirebase.getFirebase()
+                .child("usuarios")
+                .child(currentFirebaseUser.getUid())
+                .child("Consultas")
+                .child(idconsulta);
+        GravaAgendamento gravaAgendamento = new GravaAgendamento();
+        gravaAgendamento.setEspecialidade(especialidadeSelect);
+        gravaAgendamento.setIdnome(idNomeSelect);
+        gravaAgendamento.setData(data);
+        gravaAgendamento.setHora(hora);
+        gravaAgendamento.setEstado("São Paulo");
+        gravaAgendamento.setCidade(cidadeSelect);
+        gravaAgendamento.setStatus("2");
+        gravaAgendamento.setEndcomp(endcomp);
+        gravaAgendamento.setNome(consultaConsultorio.getNome());
+        firebase.setValue(gravaAgendamento);
     }
-public void PreencherEndereco(){
+    public void PreencherEndereco(){
 
-    firebase = ConfiguracaoFirebase.getFirebase()
-            .child("medicos")
-            .child(especialidadeSelect)
-            .child("São Paulo")
-            .child(cidadeSelect)
-            .child(idNomeSelect);
-    firebase.addValueEventListener(new ValueEventListener() {
-        @Override
-        public void onDataChange(DataSnapshot dataSnapshot) {
-            dataSnapshot.getChildren();
-            consultaConsultorio = dataSnapshot.getValue(ConsultaConsultorio.class);
-            String end = consultaConsultorio.getEnd();
-            String num = consultaConsultorio.getNum().toString();
-            String bairro = consultaConsultorio.getBairro();
-            endcomp = end + ", " + num + " - " + bairro;
+        firebase = ConfiguracaoFirebase.getFirebase()
+                .child("medicos")
+                .child(especialidadeSelect)
+                .child("São Paulo")
+                .child(cidadeSelect)
+                .child(idNomeSelect);
+        firebase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                dataSnapshot.getChildren();
+                consultaConsultorio = dataSnapshot.getValue(ConsultaConsultorio.class);
+                String end = consultaConsultorio.getEnd();
+                String num = consultaConsultorio.getNum().toString();
+                String bairro = consultaConsultorio.getBairro();
+                endcomp = end + ", " + num + " - " + bairro;
 
-        }
-        @Override
-        public void onCancelled(DatabaseError databaseError) {
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
-        }
-    });
+            }
+        });
 
-}
+    }
 
 
-public void ValidarPerfil(){
-    FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
-    firebase = ConfiguracaoFirebase.getFirebase()
-            .child("usuarios")
-            .child(currentFirebaseUser.getUid());
+    public void ValidarPerfil(){
+        FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
+        firebase = ConfiguracaoFirebase.getFirebase()
+                .child("usuarios")
+                .child(currentFirebaseUser.getUid());
 
-    firebase.addValueEventListener(new ValueEventListener() {
-        @Override
-        public void onDataChange(DataSnapshot dataSnapshot) {
-            dataSnapshot.getChildren();
-            DadosPerfil dadosPerfil = dataSnapshot.getValue(DadosPerfil.class);
-            if(dadosPerfil.getStatus()==1)
-                control = true;
-        }
-        @Override
-        public void onCancelled(DatabaseError databaseError) {
-        }
-    });
-}
+        firebase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                dataSnapshot.getChildren();
+                DadosPerfil dadosPerfil = dataSnapshot.getValue(DadosPerfil.class);
+                if(dadosPerfil.getStatus()==1)
+                    control = true;
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
     public void killActivity () {
-getActivity().finish();
+        getActivity().finish();
     }
 }
