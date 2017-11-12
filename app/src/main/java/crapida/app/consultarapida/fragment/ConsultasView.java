@@ -183,8 +183,10 @@ public class ConsultasView extends Fragment {
         });
     }
     public void criarAdapter(){
-        ArrayAdapter adapter = new ConsultaAdapter(getActivity(), consultas);
-        lista.setAdapter(adapter);
+        if(getActivity()!=null) {
+            ArrayAdapter adapter = new ConsultaAdapter(getActivity(), consultas);
+            lista.setAdapter(adapter);
+        }
     }
 
     public void cancelarConsulta(String espec, String estadoCanc, String cidadeCanc, String dataCanc, String horaCanc, String idnomeCanc ){

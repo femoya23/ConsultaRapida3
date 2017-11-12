@@ -246,6 +246,7 @@ public class BuscaFragment extends Fragment {
                 //intent.putExtra("estado", estadoselecionado);
                 intent.putExtra("cidade", cidadeselecionado);
                 startActivity(intent);
+
                 }
             });
         return view;

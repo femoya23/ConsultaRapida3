@@ -310,6 +310,7 @@ public class ConsultorioAgendamento extends Fragment {
         gravaAgendamento.setEndcomp(endcomp);
         gravaAgendamento.setNome(consultaConsultorio.getNome());
         firebase.setValue(gravaAgendamento);
+        killActivity();
     }
     public void PreencherEndereco(){
 
