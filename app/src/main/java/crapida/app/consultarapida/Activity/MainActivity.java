@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         inicializarBotaoFacebook();
         inicializarCallback();
         clicarBotaoFacebook();
+        firebaseAuth = firebaseAuth.getInstance();
 
         //Referencia Id com Variaveis
         email= (EditText) findViewById(R.id.loginId);
@@ -187,23 +188,22 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onError(FacebookException error) {
-                alerta("Erro no login com Facebook.");
+                alerta("Erro no login com Facebook.erro A");
             }
         });
     }
 
     private void firebaseLogin(AccessToken accessToken) {
         AuthCredential credential = FacebookAuthProvider.getCredential(accessToken.getToken());
-        firebaseAuth.signInWithCredential(credential).addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+        firebaseAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
                     Intent i = new Intent(MainActivity.this, TelaPrin.class);
                     startActivity(i);
-
                     fbuser = FirebaseAuth.getInstance().getCurrentUser() ;
                     uiduser = fbuser.getUid();
-
                     firebase = ConfiguracaoFirebase.getFirebase()
                             .child("usuarios")
                             .child(uiduser);
@@ -213,7 +213,7 @@ public class MainActivity extends AppCompatActivity {
 
                     finish();
                 }else{
-                    alerta("Erro de autenticação com Firebase.");
+                    alerta("Erro de autenticação com Firebase.erro b");
                 }
             }
         });
